@@ -136,9 +136,9 @@ return [
     'usermenu_enabled' => true,
     'usermenu_header' => false,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
+    'usermenu_image' => true,
     'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    'usermenu_profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -320,18 +320,11 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
+        ['header' => 'master'],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'bahan',
+            'url' => 'master/bahan',
+            'icon' => 'fas fa-fw fa-utensils',
         ],
         [
             'text' => 'change_password',
@@ -430,7 +423,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

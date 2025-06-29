@@ -3,13 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -44,5 +45,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function adminlte_image(): string
+    {
+        return 'https://picsum.photos/300/300';
+    }
+
+    public function adminlte_profile_url(): string
+    {
+        return 'profile/username';
+    }
+
+    public function adminlte_desc(): string
+    {
+        return 'I\'m a nice guy';
     }
 }

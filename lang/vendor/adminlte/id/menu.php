@@ -1,7 +1,9 @@
 <?php
 
 return [
+
     'main_navigation' => 'NAVIGASI UTAMA',
+    'master' => 'MASTER',
     'blog' => 'Blog',
     'pages' => 'Halaman',
     'account_settings' => 'PENGATURAN AKUN',

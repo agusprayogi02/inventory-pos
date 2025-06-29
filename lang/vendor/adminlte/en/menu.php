@@ -3,6 +3,7 @@
 return [
 
     'main_navigation' => 'MAIN NAVIGATION',
+    'master' => 'MASTER',
     'blog' => 'Blog',
     'pages' => 'Pages',
     'account_settings' => 'ACCOUNT SETTINGS',
@@ -16,4 +17,7 @@ return [
     'important' => 'Important',
     'warning' => 'Warning',
     'information' => 'Information',
+    'bahan' => 'Ingredients',
+    'home' => 'Home',
+    'tambah' => 'Add New',
 ];

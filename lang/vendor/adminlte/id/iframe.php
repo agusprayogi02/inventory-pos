@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | IFrame Mode Language Lines
@@ -13,12 +12,11 @@ return [
     |
     */
 
-    'btn_close' => 'Close',
-    'btn_close_active' => 'Close Active',
-    'btn_close_all' => 'Close All',
-    'btn_close_all_other' => 'Close Everything Else',
-    'tab_empty' => 'No tab selected!',
-    'tab_home' => 'Home',
-    'tab_loading' => 'Tab is loading',
-
+    'btn_close' => 'Tutup',
+    'btn_close_active' => 'Tutup Aktif',
+    'btn_close_all' => 'Tutup Semua',
+    'btn_close_all_other' => 'Tutup Selain Ini',
+    'tab_empty' => 'Tidak ada tab yang dipilih!',
+    'tab_home' => 'Beranda',
+    'tab_loading' => 'Tab sedang dimuat',
 ];
