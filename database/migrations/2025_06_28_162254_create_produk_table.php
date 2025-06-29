@@ -11,8 +11,10 @@ return new class extends Migration {
     {
         Schema::create('produk', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Resep::class);
-            $table->foreignIdFor(Satuan::class);
+            $table->foreignIdFor(Resep::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Satuan::class)->constrained()->cascadeOnDelete();
+            $table->string('nama', 150);
+            $table->integer('isi');
             $table->integer('jumlah');
             $table->timestamps();
             $table->softDeletes();

@@ -11,8 +11,8 @@ return new class extends Migration {
     {
         Schema::create('resep_bahan', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Resep::class);
-            $table->foreignIdFor(Bahan::class);
+            $table->foreignIdFor(Resep::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Bahan::class)->constrained()->cascadeOnDelete();
             $table->integer('jumlah');
             $table->timestamps();
             $table->softDeletes();

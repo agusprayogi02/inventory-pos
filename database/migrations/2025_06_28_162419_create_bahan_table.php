@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->id();
             $table->string('nama');
             $table->integer('jumlah_min');
-            $table->foreignIdFor(Satuan::class);
+            $table->foreignIdFor(Satuan::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

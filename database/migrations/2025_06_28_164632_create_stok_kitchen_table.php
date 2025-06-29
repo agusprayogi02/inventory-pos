@@ -11,7 +11,7 @@ return new class extends Migration {
     {
         Schema::create('stok_kitchen', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Bahan::class);
+            $table->foreignIdFor(Bahan::class)->constrained()->cascadeOnDelete();
             $table->integer('jumlah');
             $table->timestamp('tanggal');
             $table->enum('status', [StokStatus::MINUS->value, StokStatus::PLUS->value]);

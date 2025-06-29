@@ -11,7 +11,7 @@ return new class extends Migration {
         Schema::create('resep', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

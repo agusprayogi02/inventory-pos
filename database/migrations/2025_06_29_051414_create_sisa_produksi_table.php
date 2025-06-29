@@ -10,7 +10,7 @@ return new class extends Migration {
     {
         Schema::create('sisa_produksi', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Produksi::class);
+            $table->foreignIdFor(Produksi::class)->constrained()->cascadeOnDelete();
             $table->integer('jumlah');
             $table->timestamps();
             $table->softDeletes();

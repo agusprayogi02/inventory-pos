@@ -11,8 +11,8 @@ return new class extends Migration {
     {
         Schema::create('stok_produk', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Produksi::class);
-            $table->foreignIdFor(Produk::class);
+            $table->foreignIdFor(Produksi::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Produk::class)->constrained()->cascadeOnDelete();
             $table->integer('jumlah');
             $table->string('keterangan');
             $table->timestamps();
