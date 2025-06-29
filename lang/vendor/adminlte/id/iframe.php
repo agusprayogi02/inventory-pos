@@ -13,11 +13,12 @@ return [
     |
     */
 
-    'btn_close' => 'بستن',
-    'btn_close_active' => 'بستن فعال',
-    'btn_close_all' => 'بستن همه',
-    'btn_close_all_other' => 'بستن همه چیز دیگر',
-    'tab_empty' => 'هیچ تب ای انتخاب نشده است',
-    'tab_home' => 'خانه',
-    'tab_loading' => 'تب در حال بارگیری است',
+    'btn_close' => 'Close',
+    'btn_close_active' => 'Close Active',
+    'btn_close_all' => 'Close All',
+    'btn_close_all_other' => 'Close Everything Else',
+    'tab_empty' => 'No tab selected!',
+    'tab_home' => 'Home',
+    'tab_loading' => 'Tab is loading',
+
 ];

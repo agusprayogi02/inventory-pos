@@ -2,37 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BahanRequest;
-use App\Models\Bahan;
+use Illuminate\Http\Request;
 
-class BahanController extends Controller
-{
+class BahanController extends Controller{
     public function index()
     {
-        return Bahan::all();
+        //
     }
 
-    public function store(BahanRequest $request)
+    public function create()
     {
-        return Bahan::create($request->validated());
     }
 
-    public function show(Bahan $bahan)
+    public function store(Request $request)
     {
-        return $bahan;
     }
 
-    public function update(BahanRequest $request, Bahan $bahan)
+    public function show($id)
     {
-        $bahan->update($request->validated());
-
-        return $bahan;
     }
 
-    public function destroy(Bahan $bahan)
+    public function edit($id)
     {
-        $bahan->delete();
+    }
 
-        return response()->json();
+    public function update(Request $request, $id)
+    {
+    }
+
+    public function destroy($id)
+    {
     }
 }
