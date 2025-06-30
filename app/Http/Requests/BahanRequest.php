@@ -11,7 +11,7 @@ class BahanRequest extends FormRequest
         return [
             'nama' => ['required'],
             'jumlah_min' => ['required', 'integer'],
-            'satuan_id' => ['required', 'exists:satuan'],
+            'satuan_id' => ['required', 'exists:satuan,id'],
         ];
     }
 

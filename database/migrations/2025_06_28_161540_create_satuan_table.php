@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->string('nama');
             $table->string('satuan', 50);
+            $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

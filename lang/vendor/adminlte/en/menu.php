@@ -20,4 +20,5 @@ return [
     'bahan' => 'Ingredients',
     'home' => 'Home',
     'tambah' => 'Add New',
+    'satuan' => 'Unit',
 ];

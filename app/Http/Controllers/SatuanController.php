@@ -10,12 +10,13 @@ class SatuanController extends Controller
 {
     public function data()
     {
-        return DataTables::eloquent(Satuan::query())
+        $query = Satuan::query();
+        return DataTables::of($query)
             ->addColumn('action', function ($row) {
                 return view('satuan.action', compact('row'));
             })
             ->rawColumns(['action'])
-            ->toJson();
+            ->make();
     }
 
     public function select2()
@@ -25,12 +26,14 @@ class SatuanController extends Controller
 
     public function index()
     {
-        return Satuan::all();
+        return view('satuan.index');
     }
 
     public function store(SatuanRequest $request)
     {
-        return Satuan::create($request->validated());
+        Satuan::create($request->validated());
+
+        return redirect()->route('satuan.index')->with('success', 'Satuan berhasil ditambahkan');
     }
 
     public function show(Satuan $satuan)
@@ -38,17 +41,19 @@ class SatuanController extends Controller
         return $satuan;
     }
 
-    public function update(SatuanRequest $request, Satuan $satuan)
+    public function update(SatuanRequest $request, $id)
     {
+        $satuan = Satuan::find($id);
         $satuan->update($request->validated());
 
-        return $satuan;
+        return redirect()->route('satuan.index')->with('success', 'Satuan berhasil diubah');
     }
 
-    public function destroy(Satuan $satuan)
+    public function destroy($id)
     {
+        $satuan = Satuan::find($id);
         $satuan->delete();
 
-        return response()->json();
+        return redirect()->route('satuan.index')->with('success', 'Satuan berhasil dihapus');
     }
 }

@@ -9,8 +9,9 @@ class SatuanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => ['required'],
-            'satuan' => ['required'],
+            'nama' => ['required', 'string', 'max:255'],
+            'satuan' => ['required', 'string', 'max:50'],
+            'keterangan' => ['nullable', 'string', 'max:255'],
         ];
     }
 

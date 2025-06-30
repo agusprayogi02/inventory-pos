@@ -17,4 +17,8 @@ return [
     'important' => 'Penting',
     'warning' => 'Peringatan',
     'information' => 'Informasi',
+    'bahan' => 'Bahan',
+    'home' => 'Beranda',
+    'tambah' => 'Tambah',
+    'satuan' => 'Satuan',
 ];

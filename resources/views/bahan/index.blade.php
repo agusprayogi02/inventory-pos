@@ -2,7 +2,8 @@
 
 @section('title', 'Bahan')
 @section('plugins.Datatables', true)
-@section('plugins.DatatablesPlugin', true)
+@section('plugins.DatatablesPlugins', true)
+@section('plugins.Select2', true)
 
 @section('content_header')
     <div class="row mb-2">
@@ -21,7 +22,7 @@
 @section('content')
     <x-adminlte-modal id="add-bahan" title="Tambah Bahan" size="md" theme="success" icon="fas fa-plus" v-centered
         static-backdrop scrollable>
-        <form action="{{ route('bahan.store') }}" method="post">
+        <form action="{{ route('bahan.store') }}" method="post" id="form-bahan">
             @csrf
             <x-adminlte.form.input name="nama" label="Nama Bahan" type="text" placeholder="Nama Bahan" />
             <x-adminlte.form.input name="jumlah_min" label="Jumlah Minimum" type="number" placeholder="Jumlah Minimum" />
@@ -38,8 +39,8 @@
                 ],
             ]" />
             <x-slot name="footerSlot">
-                <x-adminlte-button class="mr-auto" theme="success" label="Accept" />
-                <x-adminlte-button theme="danger" label="Dismiss" data-dismiss="modal" />
+                <x-adminlte-button class="mr-auto" type="submit" theme="success" label="Submit" form="form-bahan" />
+                <x-adminlte-button theme="danger" label="Cancel" data-dismiss="modal" />
             </x-slot>
         </form>
     </x-adminlte-modal>
@@ -65,6 +66,7 @@
                         'processing' => true,
                         'serverSide' => false,
                         'pageLength' => 10,
+                        'responsive' => true,
                     ]">
                     </x-adminlte.tool.datatable>
                 </div>
