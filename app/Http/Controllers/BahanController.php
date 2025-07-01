@@ -28,6 +28,22 @@ class BahanController extends Controller
             ->make();
     }
 
+    public function select2()
+    {
+        $data = Bahan::select('id', 'nama')->get()->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'text' => $item->nama
+            ];
+        });
+        return response()->json([
+            'results' => $data,
+            'pagination' => [
+                'more' => false,
+            ]
+        ]);
+    }
+
     public function index()
     {
         return view('bahan.index');
@@ -53,9 +69,15 @@ class BahanController extends Controller
 
     public function update(Request $request, $id)
     {
+        $bahan = Bahan::findOrFail($id);
+        $bahan->update($request->validated());
+        return redirect()->route('bahan.index')->with('success', 'Bahan berhasil diubah');
     }
 
     public function destroy($id)
     {
+        $bahan = Bahan::findOrFail($id);
+        $bahan->delete();
+        return redirect()->route('bahan.index')->with('success', 'Bahan berhasil dihapus');
     }
 }

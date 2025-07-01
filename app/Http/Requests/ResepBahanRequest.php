@@ -4,13 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ResepRequest extends FormRequest
+class ResepBahanRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'nama' => ['required'],
-            'user_id' => ['required', 'exists:users,id'],
+            'bahan_id' => ['required', 'exists:bahan,id'],
+            'jumlah' => ['required', 'numeric', 'min:1'],
         ];
     }
 

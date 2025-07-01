@@ -16,6 +16,7 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->prefix("master")->group(function () {
     Route::get('bahan/data', [BahanController::class, 'data'])->name('bahan.data');
+    Route::get('bahan/select2', [BahanController::class, 'select2'])->name('bahan.select2');
     Route::resource('bahan', BahanController::class)
         ->names('bahan');
     Route::get('satuan/data', [SatuanController::class, 'data'])->name('satuan.data');
@@ -23,7 +24,11 @@ Route::middleware(['auth'])->prefix("master")->group(function () {
     Route::resource('satuan', SatuanController::class)
         ->names('satuan');
     Route::get('resep/data', [ResepController::class, 'data'])->name('resep.data');
+    Route::get('resep/select2', [ResepController::class, 'select2'])->name('resep.select2');
     Route::resource('resep', ResepController::class)
         ->names('resep');
-    Route::get('resep/select2', [ResepController::class, 'select2'])->name('resep.select2');
+    Route::get('resep/{resep_id}/bahan', [ResepController::class, 'showBahan'])->name('resep.bahan');
+    Route::post('resep/{resep_id}/bahan', [ResepController::class, 'storeBahan'])->name('resep.bahan.store');
+    Route::put('resep/{resep_id}/bahan/{id}', [ResepController::class, 'updateBahan'])->name('resep.bahan.update');
+    Route::delete('resep/{resep_id}/bahan/{id}', [ResepController::class, 'destroyBahan'])->name('resep.bahan.destroy');
 });

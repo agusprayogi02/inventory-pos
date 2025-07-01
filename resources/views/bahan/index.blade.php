@@ -38,9 +38,6 @@
                 'placeholder' => 'Pilih Satuan',
                 'allowClear' => true,
                 'theme' => 'bootstrap4',
-                'data' => [
-                    'placeholder' => 'Pilih Satuan',
-                ],
                 'ajax' => [
                     'url' => route('satuan.select2'),
                     'type' => 'GET',
@@ -66,9 +63,6 @@
                 'placeholder' => 'Pilih Satuan',
                 'allowClear' => true,
                 'theme' => 'bootstrap4',
-                'data' => [
-                    'placeholder' => 'Pilih Satuan',
-                ],
                 'ajax' => [
                     'url' => route('satuan.select2'),
                     'type' => 'GET',
