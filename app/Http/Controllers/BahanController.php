@@ -17,12 +17,12 @@ class BahanController extends Controller
     {
         $query = Bahan::with('satuan:id,nama');
 
-        return DataTables::eloquent($query)
-            ->addColumn('satuan_nama', function (Bahan $bahan) {
-                return $bahan->satuan ? $bahan->satuan->nama : '-';
+        return DataTables::eloquent(builder: $query)
+            ->addColumn('satuan_nama', function (Bahan $row) {
+                return $row->satuan ? $row->satuan->nama : '-';
             })
-            ->addColumn('action', function (Bahan $bahan) {
-                return view('bahan.action', compact('bahan'))->render();
+            ->addColumn('action', function (Bahan $row) {
+                return view('bahan.action', compact('row'))->render();
             })
             ->rawColumns(['action'])
             ->make();

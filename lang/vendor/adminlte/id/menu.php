@@ -21,4 +21,5 @@ return [
     'home' => 'Beranda',
     'tambah' => 'Tambah',
     'satuan' => 'Satuan',
+    'resep' => 'Resep',
 ];

@@ -21,7 +21,20 @@ class SatuanController extends Controller
 
     public function select2()
     {
-        return Satuan::select('id', 'nama')->toJson();
+        $data = Satuan::select('id', 'nama')->get()->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'text' => $item->nama
+            ];
+        });
+        return response()->json(
+            [
+                "results" => $data,
+                "pagination" => [
+                    "more" => false
+                ]
+            ]
+        );
     }
 
     public function index()

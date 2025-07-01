@@ -1,13 +1,9 @@
 <div class="btn-group" role="group">
-    <a href="{{ route('bahan.edit', $bahan->id) }}" class="btn btn-sm btn-info">
+    <a href="#" class="btn btn-sm btn-warning"
+        onclick="editBahan({{ $row->id }}, '{{ $row->nama }}', '{{ $row->jumlah_min }}', '{{ $row->satuan_id }}', '{{ addslashes($row->satuan ? $row->satuan->nama : '-') }}')">
         <i class="fas fa-edit"></i> Edit
     </a>
-    <form action="{{ route('bahan.destroy', $bahan->id) }}" method="POST" style="display: inline;">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-sm btn-danger"
-            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-            <i class="fas fa-trash"></i> Hapus
-        </button>
-    </form>
+    <button type="button" class="btn btn-sm btn-danger" onclick="deleteBahan({{ $row->id }})">
+        <i class="fas fa-trash"></i> Hapus
+    </button>
 </div>

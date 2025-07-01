@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BahanController;
+use App\Http\Controllers\ResepController;
 use App\Http\Controllers\SatuanController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -21,4 +22,8 @@ Route::middleware(['auth'])->prefix("master")->group(function () {
     Route::get('satuan/select2', [SatuanController::class, 'select2'])->name('satuan.select2');
     Route::resource('satuan', SatuanController::class)
         ->names('satuan');
+    Route::get('resep/data', [ResepController::class, 'data'])->name('resep.data');
+    Route::resource('resep', ResepController::class)
+        ->names('resep');
+    Route::get('resep/select2', [ResepController::class, 'select2'])->name('resep.select2');
 });

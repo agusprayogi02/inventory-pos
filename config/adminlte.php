@@ -332,6 +332,11 @@ return [
             'icon' => 'fas fa-fw fa-balance-scale',
         ],
         [
+            'text' => 'resep',
+            'url' => 'master/resep',
+            'icon' => 'fas fa-fw fa-book-open',
+        ],
+        [
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [

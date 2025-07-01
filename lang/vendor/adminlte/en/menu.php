@@ -21,4 +21,5 @@ return [
     'home' => 'Home',
     'tambah' => 'Add New',
     'satuan' => 'Unit',
+    'resep' => 'Recipe',
 ];

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Satuan')
+@section('title', 'Resep')
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesPlugins', true)
 @section('plugins.Select2', true)
@@ -8,40 +8,40 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>{{ __('adminlte::menu.satuan') }}</h1>
+            <h1>{{ __('adminlte::menu.resep') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('adminlte::menu.home') }}</a></li>
-                <li class="breadcrumb-item active">{{ __('adminlte::menu.satuan') }}</li>
+                <li class="breadcrumb-item active">{{ __('adminlte::menu.resep') }}</li>
             </ol>
         </div>
     </div>
 @endsection
 
 @section('content')
-    <x-adminlte-modal id="add-satuan" title="Tambah Satuan" size="md" theme="success" icon="fas fa-plus" v-centered
+    <x-adminlte-modal id="add-resep" title="Tambah Resep" size="md" theme="success" icon="fas fa-plus" v-centered
         static-backdrop scrollable>
-        <form action="{{ route('satuan.store') }}" method="post" id="form-satuan">
+        <form action="{{ route('resep.store') }}" method="post" id="form-resep">
             @csrf
-            <x-adminlte.form.input name="nama" label="Nama Satuan" type="text" placeholder="Nama Satuan" required />
-            <x-adminlte.form.input name="keterangan" label="Keterangan" type="text" placeholder="Keterangan" />
+            <x-adminlte.form.input name="nama" label="Nama Resep" type="text" placeholder="Nama Resep" required />
+            <input type="hidden" name="user_id" id="add-user_id" value="{{ auth()->user()->id }}">
+
             <x-slot name="footerSlot">
-                <x-adminlte-button class="mr-auto" type="submit" theme="success" label="Submit" form="form-satuan" />
+                <x-adminlte-button class="mr-auto" type="submit" theme="success" label="Submit" form="form-resep" />
                 <x-adminlte-button theme="danger" label="Cancel" data-dismiss="modal" />
             </x-slot>
         </form>
     </x-adminlte-modal>
 
-    <x-adminlte-modal id="edit-satuan" title="Edit Satuan" size="md" theme="warning" icon="fas fa-edit" v-centered
+    <x-adminlte-modal id="edit-resep" title="Edit Resep" size="md" theme="warning" icon="fas fa-edit" v-centered
         static-backdrop scrollable>
-        <form action="" method="post" id="edit-form">
+        <form action="{{ route('resep.update', ':id') }}" method="post" id="edit-form">
             @csrf
             @method('PUT')
-            <x-adminlte.form.input name="nama" id="edit-nama" label="Nama Satuan" type="text"
-                placeholder="Nama Satuan" required />
-            <x-adminlte.form.input name="keterangan" id="edit-keterangan" label="Keterangan" type="text"
-                placeholder="Keterangan" />
+            <x-adminlte.form.input name="nama" id="edit-nama" label="Nama Resep" type="text" placeholder="Nama Resep"
+                required />
+            <input type="hidden" name="user_id" id="edit-user_id" value="{{ auth()->user()->id }}">
             <x-slot name="footerSlot">
                 <x-adminlte-button class="mr-auto" type="submit" theme="warning" label="Update" form="edit-form" />
                 <x-adminlte-button theme="danger" label="Cancel" data-dismiss="modal" />
@@ -54,21 +54,21 @@
             <div class="card">
                 <div class="card-header">
                     <a href="#" class="btn btn-primary" data-toggle="modal"
-                        data-target="#add-satuan">{{ __('adminlte::menu.tambah') }}</a>
+                        data-target="#add-resep">{{ __('adminlte::menu.tambah') }}</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <x-adminlte.tool.datatable id="satuan-tables" :heads="['ID', 'Nama Satuan', 'Keterangan', 'Aksi']" :config="[
+                    <x-adminlte.tool.datatable id="resep-tables" :heads="['ID', 'Nama Resep', 'Dibuat Oleh', 'Aksi']" :config="[
                         'columns' => [
                             ['data' => 'id'],
                             ['data' => 'nama'],
-                            ['data' => 'keterangan'],
+                            ['data' => 'user_name'],
                             ['data' => 'action', 'orderable' => false, 'searchable' => false],
                         ],
                         'processing' => true,
                         'serverSide' => true,
                         'ajax' => [
-                            'url' => route('satuan.data'),
+                            'url' => route('resep.data'),
                             'type' => 'GET',
                         ],
                         'pageLength' => 10,
@@ -83,17 +83,16 @@
 
 @section('js')
     <script>
-        function editSatuan(id, nama, keterangan) {
+        function editResep(id, nama) {
             // Set values to edit modal
-            $('#edit-satuan #edit-nama').val(nama);
-            $('#edit-satuan #edit-keterangan').val(keterangan);
-            $('#edit-satuan #edit-form').attr('action', '{{ route('satuan.update', ':id') }}'.replace(':id', id));
+            $('#edit-resep #edit-nama').val(nama);
+            $('#edit-resep #edit-form').attr('action', '{{ route('resep.update', ':id') }}'.replace(':id', id));
 
             // Show edit modal
-            $('#edit-satuan').modal('show');
+            $('#edit-resep').modal('show');
         }
 
-        function deleteSatuan(id) {
+        function deleteResep(id) {
             Swal.fire({
                 title: 'Apakah Anda yakin?',
                 text: "Data yang dihapus tidak dapat dikembalikan!",
@@ -108,7 +107,7 @@
                     // Create form and submit
                     const form = document.createElement('form');
                     form.method = 'POST';
-                    form.action = '{{ route('satuan.destroy', ':id') }}'.replace(':id', id);
+                    form.action = '{{ route('resep.destroy', ':id') }}'.replace(':id', id);
 
                     const csrfToken = document.createElement('input');
                     csrfToken.type = 'hidden';

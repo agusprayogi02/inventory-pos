@@ -10,7 +10,6 @@ class SatuanRequest extends FormRequest
     {
         return [
             'nama' => ['required', 'string', 'max:255'],
-            'satuan' => ['required', 'string', 'max:50'],
             'keterangan' => ['nullable', 'string', 'max:255'],
         ];
     }

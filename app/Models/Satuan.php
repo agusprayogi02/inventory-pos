@@ -13,7 +13,6 @@ class Satuan extends Model
 
     protected $fillable = [
         'nama',
-        'satuan',
         'keterangan',
     ];
 }
