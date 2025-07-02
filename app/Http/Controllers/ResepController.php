@@ -108,7 +108,7 @@ class ResepController extends Controller
         $resepBahan = ResepBahan::query()->findOrFail($id);
         $resepBahan->delete();
 
-        return redirect()->route('resep.show', $resepBahan->resep_id)->with('success', 'Bahan berhasil dihapus');
+        return redirect()->route('resep.show', $resepId)->with('success', 'Bahan berhasil dihapus');
     }
 
     public function update(ResepRequest $request, Resep $resep)

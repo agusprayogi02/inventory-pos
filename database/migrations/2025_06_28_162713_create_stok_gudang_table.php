@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->integer('jumlah');
             $table->timestamp('tanggal');
             $table->enum('status', [StokStatus::MINUS->value, StokStatus::PLUS->value]);
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->date('exp_date');
             $table->timestamps();
             $table->softDeletes();

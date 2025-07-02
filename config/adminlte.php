@@ -30,8 +30,8 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'use_ico_only' => true,
+    'use_full_favicon' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -335,6 +335,12 @@ return [
             'text' => 'resep',
             'url' => 'master/resep',
             'icon' => 'fas fa-fw fa-book-open',
+        ],
+        ['header' => 'transaksi'],
+        [
+            'text' => 'stok gudang',
+            'url' => 'transaksi/stok-gudang',
+            'icon' => 'fas fa-fw fa-warehouse',
         ],
         [
             'text' => 'multilevel',

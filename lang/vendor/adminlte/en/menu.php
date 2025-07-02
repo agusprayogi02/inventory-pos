@@ -22,4 +22,5 @@ return [
     'tambah' => 'Add New',
     'satuan' => 'Unit',
     'resep' => 'Recipe',
+    'stok_gudang' => 'Stock Gudang',
 ];

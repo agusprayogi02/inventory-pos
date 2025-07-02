@@ -22,4 +22,5 @@ return [
     'tambah' => 'Tambah',
     'satuan' => 'Satuan',
     'resep' => 'Resep',
+    'stok_gudang' => 'Stok Gudang',
 ];

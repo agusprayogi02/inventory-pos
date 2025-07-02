@@ -33,7 +33,7 @@
         <form action="{{ route('bahan.store') }}" method="post" id="form-bahan">
             @csrf
             <x-adminlte.form.input name="nama" label="Nama Bahan" type="text" placeholder="Nama Bahan" />
-            <x-adminlte.form.input name="jumlah_min" label="Jumlah Minimum" type="number" placeholder="Jumlah Minimum" />
+            <x-adminlte.form.input name="jumlah_min" label="Isi" type="number" placeholder="Isi" />
             <x-adminlte.form.select2 id="satuan_id" name="satuan_id" label="Satuan" :config="[
                 'placeholder' => 'Pilih Satuan',
                 'allowClear' => true,
@@ -57,8 +57,7 @@
             @method('PUT')
             <x-adminlte.form.input name="nama" id="edit-nama" label="Nama Bahan" type="text"
                 placeholder="Nama Bahan" />
-            <x-adminlte.form.input name="jumlah_min" id="edit-jumlah_min" label="Jumlah Minimum" type="number"
-                placeholder="Jumlah Minimum" />
+            <x-adminlte.form.input name="jumlah_min" id="edit-jumlah_min" label="Isi" type="number" placeholder="Isi" />
             <x-adminlte.form.select2 id="edit-satuan_id" name="satuan_id" label="Satuan" :config="[
                 'placeholder' => 'Pilih Satuan',
                 'allowClear' => true,
@@ -84,7 +83,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <x-adminlte.tool.datatable id="bahan-tables" :heads="['ID', 'Nama Bahan', 'Jumlah Minimum', 'Satuan', 'Aksi']" :config="[
+                    <x-adminlte.tool.datatable id="bahan-tables" :heads="['ID', 'Nama Bahan', 'Isi', 'Satuan', 'Aksi']" :config="[
                         'ajax' => route('bahan.data'),
                         'columns' => [
                             ['data' => 'id'],

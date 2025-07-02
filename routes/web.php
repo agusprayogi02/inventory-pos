@@ -3,6 +3,7 @@
 use App\Http\Controllers\BahanController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\SatuanController;
+use App\Http\Controllers\StokGudangController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -31,4 +32,11 @@ Route::middleware(['auth'])->prefix("master")->group(function () {
     Route::post('resep/{resep_id}/bahan', [ResepController::class, 'storeBahan'])->name('resep.bahan.store');
     Route::put('resep/{resep_id}/bahan/{id}', [ResepController::class, 'updateBahan'])->name('resep.bahan.update');
     Route::delete('resep/{resep_id}/bahan/{id}', [ResepController::class, 'destroyBahan'])->name('resep.bahan.destroy');
+});
+
+Route::middleware(['auth'])->prefix("transaksi")->group(function () {
+    Route::get('stok-gudang/data', [StokGudangController::class, 'data'])->name('stok-gudang.data');
+    Route::get('stok-gudang/select2', [StokGudangController::class, 'select2'])->name('stok-gudang.select2');
+    Route::resource('stok-gudang', StokGudangController::class)
+        ->names('stok-gudang');
 });
