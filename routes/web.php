@@ -36,6 +36,7 @@ Route::middleware(['auth'])->prefix("master")->group(function () {
 
 Route::middleware(['auth'])->prefix("transaksi")->group(function () {
     Route::get('stok-gudang/data', [StokGudangController::class, 'data'])->name('stok-gudang.data');
+    Route::get('stok-gudang/data-detail/{bahan_id}', [StokGudangController::class, 'dataDetail'])->name('stok-gudang.dataDetail');
     Route::get('stok-gudang/select2', [StokGudangController::class, 'select2'])->name('stok-gudang.select2');
     Route::resource('stok-gudang', StokGudangController::class)
         ->names('stok-gudang');
