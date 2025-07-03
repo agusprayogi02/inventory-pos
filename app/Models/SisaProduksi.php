@@ -14,6 +14,8 @@ class SisaProduksi extends Model
     protected $fillable = [
         'produksi_id',
         'jumlah',
+        'status',
+        'keterangan',
     ];
 
     public function produksi(): BelongsTo

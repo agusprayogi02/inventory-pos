@@ -82,13 +82,13 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <x-adminlte.tool.datatable id="produksi-tables" :heads="['ID', 'Resep', 'Jumlah', 'Tanggal', 'Aksi']" :config="[
+                    <x-adminlte.tool.datatable id="produksi-tables" :heads="['Tanggal', 'Resep', 'Jumlah', 'Sisa Produksi', 'Aksi']" :config="[
                         'ajax' => route('produksi.data'),
                         'columns' => [
-                            ['data' => 'id'],
+                            ['data' => 'tanggal'],
                             ['data' => 'resep_nama'],
                             ['data' => 'jumlah'],
-                            ['data' => 'tanggal'],
+                            ['data' => 'sisa_produksi'],
                             ['data' => 'action', 'orderable' => false, 'searchable' => false],
                         ],
                         'processing' => true,

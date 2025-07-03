@@ -12,7 +12,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('stok_kitchen', function (Blueprint $table) {
-            $table->foreignIdFor(StokGudang::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(StokGudang::class)->after('bahan_id')
+                ->constrained()->cascadeOnDelete();
         });
     }
 

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProduksiRequest;
+use App\Http\Requests\StokProdukRequest;
 use App\Models\Produksi;
+use App\Models\StokProduk;
+use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 class ProduksiController extends Controller
@@ -15,13 +18,16 @@ class ProduksiController extends Controller
             ->addColumn('resep_nama', function ($row) {
                 return $row->resep ? $row->resep->nama : '-';
             })
+            ->addColumn('sisa_produksi', function ($row) {
+                return $row->sisaProduksi();
+            })
             ->addColumn('action', function ($row) {
                 return view('produksi.action', compact('row'));
             })
             ->addColumn('tanggal', function ($row) {
                 return $row->tanggal ? date('d M Y', $row->tanggal) : '-';
             })
-            ->rawColumns(['action', 'resep_nama', 'tanggal'])
+            ->rawColumns(['action', 'resep_nama', 'tanggal', 'sisa_produksi'])
             ->make(true);
     }
 
@@ -67,5 +73,41 @@ class ProduksiController extends Controller
         $produksi->delete();
 
         return redirect()->route('produksi.index')->with('success', 'Produksi berhasil dihapus');
+    }
+
+    public function show($id)
+    {
+        $produksi = Produksi::with('resep:id,nama')->find($id);
+        return view('produksi.show', compact('produksi'));
+    }
+
+    public function storeStokProduk(StokProdukRequest $request, $id)
+    {
+        $produksi = Produksi::query()->find($id);
+        $produksi->stokProduk()->create($request->validated());
+
+        return redirect()->route('produksi.show', $id)->with('success', 'Stok produk berhasil ditambahkan');
+    }
+
+    public function dataStokProduk($id)
+    {
+        $stokProduk = StokProduk::with('produk:id,nama,satuan_id')
+            ->where('produksi_id', $id)
+            ->orderBy('created_at', 'desc');
+        return DataTables::of($stokProduk)
+            ->addColumn('produk_nama', function ($row) {
+                return $row->produk ? $row->produk->nama : '-';
+            })
+            ->addColumn('tanggal', function (StokProduk $row) {
+                return $row->created_at ? date('d M Y', strtotime($row->created_at)) : '-';
+            })
+            ->addColumn('jumlah', function ($row) {
+                return $row->jumlah . ' ' . $row->produk->satuan->nama;
+            })
+            ->addColumn('action', function ($row) {
+                return view('produksi.action-stok', compact('row'));
+            })
+            ->rawColumns(['produk_nama', 'action', 'tanggal', 'jumlah'])
+            ->make(true);
     }
 }

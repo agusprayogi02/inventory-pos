@@ -7,17 +7,14 @@ use App\Http\Controllers\ResepController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\StokGudangController;
 use App\Http\Controllers\StokKitchenController;
+use App\Http\Controllers\StokProdukController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->prefix("master")->group(function () {
     Route::get('bahan/data', [BahanController::class, 'data'])->name('bahan.data');
     Route::get('bahan/select2', [BahanController::class, 'select2'])->name('bahan.select2');
@@ -53,11 +50,19 @@ Route::middleware(['auth'])->prefix("transaksi")->group(function () {
     Route::get('stok-kitchen/select2', [StokKitchenController::class, 'select2'])->name('stok-kitchen.select2');
     Route::resource('stok-kitchen', StokKitchenController::class)
         ->names('stok-kitchen');
+
+    // stok produk
+    Route::get('stok-produk/data', [StokProdukController::class, 'data'])->name('stok-produk.data');
+    Route::get('stok-produk/select2', [StokProdukController::class, 'select2'])->name('stok-produk.select2');
+    Route::resource('stok-produk', StokProdukController::class)
+        ->names('stok-produk');
 });
 
 Route::middleware(['auth'])->prefix("produksi")->group(function () {
     Route::get('hasil-produksi/data', [ProduksiController::class, 'data'])->name('produksi.data');
     Route::get('hasil-produksi/select2', [ProduksiController::class, 'select2'])->name('produksi.select2');
+    Route::post('hasil-produksi/{id}/stok', [ProduksiController::class, 'storeStokProduk'])->name('produksi.stok.store');
+    Route::get('hasil-produksi/{id}/stok/data', [ProduksiController::class, 'dataStokProduk'])->name('produksi.stok.data');
     Route::resource('hasil-produksi', ProduksiController::class)
         ->names('produksi');
 });

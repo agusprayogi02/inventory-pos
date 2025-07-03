@@ -31,12 +31,17 @@ class ProdukController extends Controller
 
     public function select2()
     {
-        $produk = Produk::query()->select('id', 'nama')->get()->map(function ($item) {
-            return [
-                'id' => $item->id,
-                'text' => $item->nama
-            ];
-        });
+        $req = request()->get('resep_id');
+        $produk = Produk::query()->select('id', 'nama', 'isi')
+            ->when($req, function ($query) use ($req) {
+                return $query->where('resep_id', $req);
+            })
+            ->get()->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'text' => $item->nama . ' (' . $item->isi . ' pcs)'
+                ];
+            });
         return response()->json([
             "results" => $produk,
             "pagination" => [

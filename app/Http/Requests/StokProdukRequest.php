@@ -9,10 +9,11 @@ class StokProdukRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'produksi_id' => ['required', 'exists:produksi'],
-            'produk_id' => ['required', 'exists:produk'],
+            'produksi_id' => ['required', 'exists:produksi,id'],
+            'produk_id' => ['required', 'exists:produk,id'],
             'jumlah' => ['required', 'integer'],
-            'keterangan' => ['required'],
+            'keterangan' => ['nullable'],
+            'is_produksi' => ['nullable', 'boolean'],
         ];
     }
 

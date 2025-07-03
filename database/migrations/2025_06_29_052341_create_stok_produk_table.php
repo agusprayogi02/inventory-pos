@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->foreignIdFor(Produksi::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Produk::class)->constrained()->cascadeOnDelete();
             $table->integer('jumlah');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
