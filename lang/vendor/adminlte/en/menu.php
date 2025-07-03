@@ -23,4 +23,6 @@ return [
     'satuan' => 'Unit',
     'resep' => 'Recipe',
     'stok_gudang' => 'Stock Gudang',
+    'stok_kitchen' => 'Stock Kitchen',
+    'produk' => 'Product',
 ];

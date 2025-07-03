@@ -15,6 +15,8 @@ class Produk extends Model
     protected $fillable = [
         'resep_id',
         'satuan_id',
+        'nama',
+        'isi',
         'jumlah',
     ];
 

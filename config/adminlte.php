@@ -336,11 +336,21 @@ return [
             'url' => 'master/resep',
             'icon' => 'fas fa-fw fa-book-open',
         ],
+        [
+            'text' => 'produk',
+            'url' => 'master/produk',
+            'icon' => 'fas fa-fw fa-box',
+        ],
         ['header' => 'transaksi'],
         [
-            'text' => 'stok gudang',
+            'text' => 'stok_gudang',
             'url' => 'transaksi/stok-gudang',
             'icon' => 'fas fa-fw fa-warehouse',
+        ],
+        [
+            'text' => 'stok_kitchen',
+            'url' => 'transaksi/stok-kitchen',
+            'icon' => 'fas fa-fw fa-utensils',
         ],
         [
             'text' => 'multilevel',

@@ -9,9 +9,11 @@ class ProdukRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'resep_id' => ['required', 'exists:resep'],
-            'satuan_id' => ['required', 'exists:satuan'],
-            'jumlah' => ['required', 'integer'],
+            'resep_id' => ['required', 'exists:resep,id'],
+            'satuan_id' => ['required', 'exists:satuan,id'],
+            'nama' => ['required', 'string', 'max:255'],
+            'isi' => ['required', 'integer', 'min:1'],
+            'jumlah' => ['required', 'integer', 'min:1'],
         ];
     }
 

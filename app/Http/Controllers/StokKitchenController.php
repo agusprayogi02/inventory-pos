@@ -4,12 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StokKitchenRequest;
 use App\Models\StokKitchen;
+use Yajra\DataTables\DataTables;
 
 class StokKitchenController extends Controller
 {
+    public function data()
+    {
+        $stokKitchen = StokKitchen::with('stokGudang:id,nama')->get();
+        return DataTables::of($stokKitchen)
+            ->addIndexColumn()
+            ->addColumn('action', function (StokKitchen $row) {
+                return view('stok-kitchen.action', compact('row'));
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function select2()
+    {
+
+    }
+
     public function index()
     {
-        return StokKitchen::all();
+        return view('stok-kitchen.index');
     }
 
     public function store(StokKitchenRequest $request)
