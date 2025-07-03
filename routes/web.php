@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BahanController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\StokGudangController;
@@ -52,4 +53,11 @@ Route::middleware(['auth'])->prefix("transaksi")->group(function () {
     Route::get('stok-kitchen/select2', [StokKitchenController::class, 'select2'])->name('stok-kitchen.select2');
     Route::resource('stok-kitchen', StokKitchenController::class)
         ->names('stok-kitchen');
+});
+
+Route::middleware(['auth'])->prefix("produksi")->group(function () {
+    Route::get('hasil-produksi/data', [ProduksiController::class, 'data'])->name('produksi.data');
+    Route::get('hasil-produksi/select2', [ProduksiController::class, 'select2'])->name('produksi.select2');
+    Route::resource('hasil-produksi', ProduksiController::class)
+        ->names('produksi');
 });

@@ -25,4 +25,7 @@ return [
     'stok_gudang' => 'Stock Gudang',
     'stok_kitchen' => 'Stock Kitchen',
     'produk' => 'Product',
+    'hasil_produksi' => 'Hasil Produksi',
+    'produksi' => 'PRODUKSI',
+    'transaksi' => 'TRANSAKSI',
 ];

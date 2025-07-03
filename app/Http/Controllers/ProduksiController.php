@@ -4,35 +4,68 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProduksiRequest;
 use App\Models\Produksi;
+use Yajra\DataTables\DataTables;
 
 class ProduksiController extends Controller
 {
+    public function data()
+    {
+        $produksi = Produksi::with('resep:id,nama')->get();
+        return DataTables::of($produksi)
+            ->addColumn('resep_nama', function ($row) {
+                return $row->resep ? $row->resep->nama : '-';
+            })
+            ->addColumn('action', function ($row) {
+                return view('produksi.action', compact('row'));
+            })
+            ->addColumn('tanggal', function ($row) {
+                return $row->tanggal ? date('d M Y', $row->tanggal) : '-';
+            })
+            ->rawColumns(['action', 'resep_nama', 'tanggal'])
+            ->make(true);
+    }
+
+    public function select2()
+    {
+        $produksi = Produksi::query()->select('id', 'nama')->get()->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'text' => $item->nama
+            ];
+        });
+        return response()->json([
+            "results" => $produksi,
+            "pagination" => [
+                "more" => false
+            ]
+        ]);
+    }
+
     public function index()
     {
-        return Produksi::all();
+        return view('produksi.index');
     }
 
     public function store(ProduksiRequest $request)
     {
-        return Produksi::create($request->validated());
+        Produksi::create($request->validated());
+
+        return redirect()->route('produksi.index')->with('success', 'Produksi berhasil ditambahkan');
     }
 
-    public function show(Produksi $produksi)
+    public function update(ProduksiRequest $request, $id)
     {
-        return $produksi;
-    }
-
-    public function update(ProduksiRequest $request, Produksi $produksi)
-    {
+        $produksi = Produksi::find($id);
         $produksi->update($request->validated());
 
-        return $produksi;
+        return redirect()->route('produksi.index')->with('success', 'Produksi berhasil diubah');
     }
 
-    public function destroy(Produksi $produksi)
+    public function destroy($id)
     {
+        $produksi = Produksi::find($id);
         $produksi->delete();
 
-        return response()->json();
+        return redirect()->route('produksi.index')->with('success', 'Produksi berhasil dihapus');
     }
 }
