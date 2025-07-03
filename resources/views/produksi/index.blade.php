@@ -41,7 +41,13 @@
                     'type' => 'GET',
                 ],
             ]" />
-            <x-adminlte.form.input name="jumlah" label="Jumlah" type="number" placeholder="Jumlah" />
+            <x-adminlte.form.input name="jumlah" label="Jumlah" type="number" placeholder="Jumlah" required>
+                <x-slot name="appendSlot">
+                    <span class="input-group-text">
+                        Pcs
+                    </span>
+                </x-slot>
+            </x-adminlte.form.input>
             <x-adminlte.form.input name="tanggal" label="Tanggal" type="date" placeholder="Tanggal" />
             <x-slot name="footerSlot">
                 <x-adminlte-button class="mr-auto" type="submit" theme="success" label="Submit" form="form-produksi" />
@@ -64,7 +70,14 @@
                     'type' => 'GET',
                 ],
             ]" />
-            <x-adminlte.form.input name="jumlah" id="edit-jumlah" label="Jumlah" type="number" placeholder="Jumlah" />
+            <x-adminlte.form.input name="jumlah" id="edit-jumlah" label="Jumlah" type="number" placeholder="Jumlah"
+                required>
+                <x-slot name="appendSlot">
+                    <span class="input-group-text">
+                        Pcs
+                    </span>
+                </x-slot>
+            </x-adminlte.form.input>
             <x-adminlte.form.input name="tanggal" id="edit-tanggal" label="Tanggal" type="date" placeholder="Tanggal" />
             <x-slot name="footerSlot">
                 <x-adminlte-button class="mr-auto" type="submit" theme="warning" label="Submit" form="edit-form" />
