@@ -350,7 +350,12 @@ return [
         [
             'text' => 'stok_kitchen',
             'url' => 'transaksi/stok-kitchen',
-            'icon' => 'fas fa-fw fa-utensils',
+            'icon' => 'fas fa-fw fa-box-open',
+        ],
+        [
+            'text' => 'stok_produk',
+            'url' => 'transaksi/stok-produk',
+            'icon' => 'fas fa-fw fa-boxes-packing',
         ],
         ['header' => 'produksi'],
         [

@@ -28,4 +28,5 @@ return [
     'hasil_produksi' => 'Hasil Produksi',
     'produksi' => 'PRODUKSI',
     'transaksi' => 'TRANSAKSI',
+    'stok_produk' => 'Stok Produk',
 ];
