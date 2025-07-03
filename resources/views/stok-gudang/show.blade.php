@@ -22,6 +22,26 @@
 @endsection
 
 @section('content')
+    <x-adminlte-modal id="modal-minus-stok-gudang" title="Kurangi Stok" size="md">
+        <form action="{{ route('stok-gudang.kurangi') }}" method="post" id="form-stok-gudang">
+            @csrf
+            <input type="hidden" name="stok_gudang_ref" id="add-stok_gudang_ref_input">
+            <input type="hidden" name="changed_id" id="add-changed_id_input">
+            <x-adminlte.form.input name="sisa_stok" id="add-sisa-stok" label="Sisa Stok" type="number"
+                placeholder="Sisa Stok" readonly />
+            <x-adminlte.form.input name="jumlah" id="add-jumlah" label="Jumlah" type="number" placeholder="Jumlah"
+                required />
+            <x-adminlte.form.input name="tanggal" id="add-tanggal" label="Tanggal" type="date" placeholder="Tanggal"
+                required />
+            <x-adminlte.form.textarea name="keterangan" id="add-keterangan" label="Keterangan" placeholder="Keterangan" />
+            <x-slot name="footerSlot">
+                <x-adminlte-button class="mr-auto" type="submit" theme="success" label="Submit" form="form-stok-gudang" />
+                <x-adminlte-button theme="danger" label="Cancel" data-dismiss="modal" />
+            </x-slot>
+        </form>
+    </x-adminlte-modal>
+
+
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -31,14 +51,15 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <x-adminlte.tool.datatable id="stok-gudang-detail-tables" :heads="['ID', 'Tanggal', 'Exp Date', 'Status', 'Jumlah', 'User']" :config="[
+                    <x-adminlte.tool.datatable id="stok-gudang-detail-tables" :heads="['Tanggal', 'Exp Date', 'Status', 'Jumlah', 'Sisa Stok', 'User', 'Aksi']" :config="[
                         'columns' => [
-                            ['data' => 'id'],
                             ['data' => 'tanggal'],
                             ['data' => 'exp_date'],
                             ['data' => 'status'],
                             ['data' => 'jumlah'],
+                            ['data' => 'sisa_stok'],
                             ['data' => 'user'],
+                            ['data' => 'action', 'orderable' => false, 'searchable' => false],
                         ],
                         'processing' => true,
                         'serverSide' => true,
@@ -54,4 +75,26 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        function minusStokGudang(id, sisaStok) {
+            $('#add-stok_gudang_ref_input').val(id);
+            $('#add-sisa-stok').val(sisaStok);
+
+            $('#modal-minus-stok-gudang').modal('show');
+        }
+
+        function changeStokGudang(id, sisaStok, changedId, jumlah, tanggal, keterangan) {
+            $('#add-stok_gudang_ref_input').val(id);
+            $('#add-sisa-stok').val(sisaStok);
+            $('#add-changed_id_input').val(changedId);
+            $('#add-jumlah').val(jumlah);
+            $('#add-tanggal').val(tanggal);
+            $('#add-keterangan').val(keterangan);
+
+            $('#modal-minus-stok-gudang').modal('show');
+        }
+    </script>
 @endsection

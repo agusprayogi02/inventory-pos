@@ -44,7 +44,7 @@ Route::middleware(['auth'])->prefix("transaksi")->group(function () {
     Route::get('stok-gudang/select2', [StokGudangController::class, 'select2'])->name('stok-gudang.select2');
     Route::resource('stok-gudang', StokGudangController::class)
         ->names('stok-gudang');
-
+    Route::post('stok-gudang/kurangi', [StokGudangController::class, 'kurangiStok'])->name('stok-gudang.kurangi');
     // stok kitchen
     Route::get('stok-kitchen/data', [StokKitchenController::class, 'data'])->name('stok-kitchen.data');
     Route::get('stok-kitchen/select2', [StokKitchenController::class, 'select2'])->name('stok-kitchen.select2');

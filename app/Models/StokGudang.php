@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\StokStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StokGudang extends Model
@@ -15,6 +17,7 @@ class StokGudang extends Model
     protected $fillable = [
         'bahan_id',
         'user_id',
+        'stok_gudang_ref',
         'jumlah',
         'tanggal',
         'status',
@@ -30,6 +33,18 @@ class StokGudang extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function stokKitchen(): HasMany
+    {
+        return $this->hasMany(StokKitchen::class);
+    }
+
+    public function sisaStokKitchen()
+    {
+        return $this->status == StokStatus::MINUS->value ? '-' : $this->jumlah - ($this->stokKitchen()->sum('jumlah')
+            + $this->where('stok_gudang_ref', $this->id)->where('status', StokStatus::MINUS->value)
+                ->sum('jumlah'));
     }
 
     protected function casts(): array

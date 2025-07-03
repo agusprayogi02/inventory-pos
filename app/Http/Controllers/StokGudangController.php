@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\StokStatus;
+use App\Http\Requests\KurangiStokGudangRequest;
 use App\Http\Requests\StokGudangRequest;
 use App\Models\Bahan;
 use App\Models\StokGudang;
@@ -61,6 +62,33 @@ class StokGudangController extends Controller
         return redirect()->route('stok-gudang.index')->with('success', 'Stok Gudang berhasil ditambahkan');
     }
 
+    public function kurangiStok(KurangiStokGudangRequest $request)
+    {
+        $data = $request->validated();
+        $stokGudang = StokGudang::query()->find($data['stok_gudang_ref']);
+        if ($data['changed_id']) {
+            $stokGudang = StokGudang::query()->find($data['changed_id']);
+            $stokGudang->update([
+                'jumlah' => $data['jumlah'],
+                'tanggal' => $data['tanggal'],
+                'keterangan' => $data['keterangan'],
+            ]);
+        } else {
+            StokGudang::query()->create([
+                'bahan_id' => $stokGudang->bahan_id,
+                'user_id' => auth()->id(),
+                'stok_gudang_ref' => $stokGudang->id,
+                'jumlah' => $data['jumlah'],
+                'tanggal' => $data['tanggal'],
+                'status' => StokStatus::MINUS->value,
+                'keterangan' => $data['keterangan'],
+                'exp_date' => $stokGudang->exp_date,
+            ]);
+        }
+
+        return redirect()->route('stok-gudang.show', $stokGudang->bahan_id)->with('success', 'Stok Gudang berhasil dikurangi');
+    }
+
     public function show(int $id)
     {
         $bahan = Bahan::query()->with('satuan:id,nama')->find($id);
@@ -101,10 +129,16 @@ class StokGudangController extends Controller
             ->addColumn('user', function ($row) {
                 return $row->user->name ?? '-';
             })
+            ->addColumn('sisa_stok', function ($row) {
+                return $row->sisaStokKitchen();
+            })
             ->addColumn('exp_date', function ($row) {
                 return $row->exp_date ? date('d-m-Y', strtotime($row->exp_date)) : '-';
             })
-            ->rawColumns(['jumlah', 'status', 'tanggal', 'user', 'exp_date'])
+            ->addColumn('action', function (StokGudang $row) {
+                return view('stok-gudang.action-show', compact('row'));
+            })
+            ->rawColumns(['jumlah', 'status', 'tanggal', 'user', 'exp_date', 'sisa_stok', 'action'])
             ->make(true);
     }
 }

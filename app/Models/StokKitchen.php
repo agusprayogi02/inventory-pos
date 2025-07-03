@@ -25,6 +25,11 @@ class StokKitchen extends Model
         return $this->belongsTo(Bahan::class);
     }
 
+    public function jumlahOnGram()
+    {
+        return $this->jumlah * $this->bahan->jumlah_min;
+    }
+
     public function stokGudang(): BelongsTo
     {
         return $this->belongsTo(StokGudang::class);
