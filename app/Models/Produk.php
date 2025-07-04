@@ -15,6 +15,7 @@ class Produk extends Model
     protected $fillable = [
         'resep_id',
         'satuan_id',
+        'satuan_produk_id',
         'nama',
         'isi',
         'jumlah',
@@ -28,5 +29,10 @@ class Produk extends Model
     public function satuan(): BelongsTo
     {
         return $this->belongsTo(Satuan::class);
+    }
+
+    public function satuanProduk(): BelongsTo
+    {
+        return $this->belongsTo(Satuan::class, 'satuan_produk_id');
     }
 }

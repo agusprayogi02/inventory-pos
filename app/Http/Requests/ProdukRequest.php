@@ -11,6 +11,7 @@ class ProdukRequest extends FormRequest
         return [
             'resep_id' => ['required', 'exists:resep,id'],
             'satuan_id' => ['required', 'exists:satuan,id'],
+            'satuan_produk_id' => ['required', 'exists:satuan,id'],
             'nama' => ['required', 'string', 'max:255'],
             'isi' => ['required', 'integer', 'min:1'],
             'jumlah' => ['required', 'integer', 'min:1'],

@@ -10,21 +10,24 @@ class ProdukController extends Controller
 {
     public function data()
     {
-        $produk = Produk::with('resep:id,nama', 'satuan:id,nama')->get();
+        $produk = Produk::with('resep:id,nama', 'satuan:id,nama', 'satuanProduk:id,nama')->get();
         return DataTables::of($produk)
             ->addColumn('resep_nama', function ($row) {
                 return $row->resep ? $row->resep->nama : '-';
             })
-            ->addColumn('satuan_nama', function ($row) {
-                return $row->satuan ? $row->satuan->nama : '-';
-            })
             ->addColumn('jumlah', function ($row) {
-                return $row->jumlah . ' ' . $row->satuan->nama;
+                return $row->jumlah . ' ' . $row->satuanProduk->nama;
+            })
+            ->addColumn('isi', function ($row) {
+                return $row->isi . ' ' . $row->satuan->nama;
             })
             ->addColumn('action', function ($row) {
                 return view('produk.action', compact('row'));
             })
-            ->rawColumns(['action', 'resep_nama', 'satuan_nama', 'jumlah'])
+            ->addColumn('nama', function (Produk $row) {
+                return $row->nama ? $row->nama : '-';
+            })
+            ->rawColumns(['action', 'resep_nama', 'jumlah', 'isi', 'nama'])
             ->addIndexColumn()
             ->make(true);
     }

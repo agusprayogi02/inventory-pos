@@ -31,7 +31,11 @@ class Produksi extends Model
 
     public function sisaProduksi()
     {
-        return $this->jumlah - ($this->stokProduk()->sum('jumlah') * $this->stokProduk()->first('produk_id')->produk->isi);
+        if ($this->stokProduk()->count() > 0) {
+            $isi = $this->stokProduk()->first('produk_id')->produk->isi;
+            return $this->jumlah - ($this->stokProduk()->sum('jumlah') * $isi);
+        }
+        return $this->jumlah;
     }
 
     protected function casts(): array

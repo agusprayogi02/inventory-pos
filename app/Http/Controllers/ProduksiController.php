@@ -13,7 +13,7 @@ class ProduksiController extends Controller
 {
     public function data()
     {
-        $produksi = Produksi::with('resep:id,nama', 'produk:id,nama,satuan_id')->get();
+        $produksi = Produksi::with('resep:id,nama')->get();
         return DataTables::of($produksi)
             ->addColumn('resep_nama', function (Produksi $row) {
                 return $row->resep ? $row->resep->nama : '-';

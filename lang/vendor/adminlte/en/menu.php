@@ -20,7 +20,7 @@ return [
     'bahan' => 'Bahan',
     'home' => 'Home',
     'tambah' => 'Add New',
-    'satuan' => 'Unit',
+    'satuan' => 'Satuan',
     'resep' => 'Resep',
     'stok_gudang' => 'Stok Gudang',
     'stok_kitchen' => 'Stok Kitchen',

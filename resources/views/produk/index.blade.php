@@ -42,17 +42,40 @@
                 ],
             ]" />
             <x-adminlte.form.input name="nama" label="Nama Produk" type="text" placeholder="Nama Produk" />
-            <x-adminlte.form.input name="isi" label="Isi" type="number" placeholder="Isi" />
-            <x-adminlte.form.input name="jumlah" label="Prediksi Jumlah" type="number" placeholder="Prediksi Jumlah" />
-            <x-adminlte.form.select2 id="satuan_id" name="satuan_id" label="Satuan" :config="[
-                'placeholder' => 'Pilih Satuan',
-                'allowClear' => true,
-                'theme' => 'bootstrap4',
-                'ajax' => [
-                    'url' => route('satuan.select2'),
-                    'type' => 'GET',
-                ],
-            ]" />
+            <div class="row">
+                <div class="col-md-6">
+                    <x-adminlte.form.input name="isi" label="Isi" type="number" placeholder="Isi" />
+                </div>
+                <div class="col-md-6">
+                    <x-adminlte.form.select2 id="satuan_id" name="satuan_id" label="Satuan" :config="[
+                        'placeholder' => 'Pilih Satuan',
+                        'allowClear' => true,
+                        'theme' => 'bootstrap4',
+                        'ajax' => [
+                            'url' => route('satuan.select2'),
+                            'type' => 'GET',
+                        ],
+                    ]" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <x-adminlte.form.input name="jumlah" label="Prediksi Jumlah" type="number"
+                        placeholder="Prediksi Jumlah" />
+                </div>
+                <div class="col-md-6">
+                    <x-adminlte.form.select2 id="satuan_produk_id" name="satuan_produk_id" label="Satuan Produk"
+                        :config="[
+                            'placeholder' => 'Pilih Satuan Produk',
+                            'allowClear' => true,
+                            'theme' => 'bootstrap4',
+                            'ajax' => [
+                                'url' => route('satuan.select2'),
+                                'type' => 'GET',
+                            ],
+                        ]" />
+                </div>
+            </div>
             <x-slot name="footerSlot">
                 <x-adminlte-button class="mr-auto" type="submit" theme="success" label="Submit" form="form-produk" />
                 <x-adminlte-button theme="danger" label="Cancel" data-dismiss="modal" />
@@ -76,18 +99,40 @@
             ]" />
             <x-adminlte.form.input name="nama" id="edit-nama" label="Nama Produk" type="text"
                 placeholder="Nama Produk" />
-            <x-adminlte.form.input name="isi" id="edit-isi" label="Isi" type="number" placeholder="Isi" />
-            <x-adminlte.form.input name="jumlah" id="edit-jumlah" label="Prediksi Jumlah" type="number"
-                placeholder="Prediksi Jumlah" />
-            <x-adminlte.form.select2 id="edit-satuan_id" name="satuan_id" label="Satuan" :config="[
-                'placeholder' => 'Pilih Satuan',
-                'allowClear' => true,
-                'theme' => 'bootstrap4',
-                'ajax' => [
-                    'url' => route('satuan.select2'),
-                    'type' => 'GET',
-                ],
-            ]" />
+            <div class="row">
+                <div class="col-md-6">
+                    <x-adminlte.form.input name="isi" id="edit-isi" label="Isi" type="number" placeholder="Isi" />
+                </div>
+                <div class="col-md-6">
+                    <x-adminlte.form.select2 id="edit-satuan_id" name="satuan_id" label="Satuan" :config="[
+                        'placeholder' => 'Pilih Satuan',
+                        'allowClear' => true,
+                        'theme' => 'bootstrap4',
+                        'ajax' => [
+                            'url' => route('satuan.select2'),
+                            'type' => 'GET',
+                        ],
+                    ]" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <x-adminlte.form.input name="jumlah" id="edit-jumlah" label="Prediksi Jumlah" type="number"
+                        placeholder="Prediksi Jumlah per Produk" />
+                </div>
+                <div class="col-md-6">
+                    <x-adminlte.form.select2 id="edit-satuan_produk_id" name="satuan_produk_id" label="Satuan Produk"
+                        :config="[
+                            'placeholder' => 'Pilih Satuan Produk',
+                            'allowClear' => true,
+                            'theme' => 'bootstrap4',
+                            'ajax' => [
+                                'url' => route('satuan.select2'),
+                                'type' => 'GET',
+                            ],
+                        ]" />
+                </div>
+            </div>
             <x-slot name="footerSlot">
                 <x-adminlte-button class="mr-auto" type="submit" theme="warning" label="Submit" form="edit-form" />
                 <x-adminlte-button theme="danger" label="Cancel" data-dismiss="modal" />
@@ -104,14 +149,14 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <x-adminlte.tool.datatable id="produk-tables" :heads="['ID', 'Nama Produk', 'Resep', 'Prediksi Jumlah', 'Isi', 'Aksi']" :config="[
+                    <x-adminlte.tool.datatable id="produk-tables" :heads="['ID', 'Nama Produk', 'Resep', 'Isi', 'Jumlah', 'Aksi']" :config="[
                         'ajax' => route('produk.data'),
                         'columns' => [
                             ['data' => 'id'],
                             ['data' => 'nama'],
                             ['data' => 'resep_nama'],
-                            ['data' => 'jumlah'],
                             ['data' => 'isi'],
+                            ['data' => 'jumlah'],
                             ['data' => 'action', 'orderable' => false, 'searchable' => false],
                         ],
                         'processing' => true,
@@ -129,7 +174,8 @@
 
 @section('js')
     <script>
-        function editProduk(id, nama, jumlah, isi, satuan_id, satuan_nama, resep_id, resep_nama) {
+        function editProduk(id, nama, jumlah, isi, satuan_id, satuan_nama, resep_id, resep_nama, satuan_produk_id,
+            satuan_produk_nama) {
             // Set values to edit modal
             $('#edit-produk #edit-nama').val(nama);
             $('#edit-produk #edit-jumlah').val(jumlah);
@@ -153,6 +199,16 @@
                 // If option not exist, create it and select
                 let newOption = new Option(satuan_nama, satuan_id, true, true);
                 $satuanSelect.append(newOption).trigger('change');
+            }
+
+            // Set value for satuan produk select2
+            let $satuanProdukSelect = $('#edit-produk #edit-satuan_produk_id');
+            if ($satuanProdukSelect.find("option[value='" + satuan_produk_id + "']").length) {
+                $satuanProdukSelect.val(satuan_produk_id).trigger('change');
+            } else {
+                // If option not exist, create it and select
+                let newOption = new Option(satuan_produk_nama, satuan_produk_id, true, true);
+                $satuanProdukSelect.append(newOption).trigger('change');
             }
 
             $('#edit-produk #edit-form').attr('action', '{{ route('produk.update', ':id') }}'.replace(':id', id));
