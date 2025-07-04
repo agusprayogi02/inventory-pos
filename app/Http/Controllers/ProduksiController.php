@@ -13,18 +13,18 @@ class ProduksiController extends Controller
 {
     public function data()
     {
-        $produksi = Produksi::with('resep:id,nama')->get();
+        $produksi = Produksi::with('resep:id,nama', 'produk:id,nama,satuan_id')->get();
         return DataTables::of($produksi)
-            ->addColumn('resep_nama', function ($row) {
+            ->addColumn('resep_nama', function (Produksi $row) {
                 return $row->resep ? $row->resep->nama : '-';
             })
-            ->addColumn('sisa_produksi', function ($row) {
+            ->addColumn('sisa_produksi', function (Produksi $row) {
                 return $row->sisaProduksi();
             })
-            ->addColumn('action', function ($row) {
+            ->addColumn('action', function (Produksi $row) {
                 return view('produksi.action', compact('row'));
             })
-            ->addColumn('tanggal', function ($row) {
+            ->addColumn('tanggal', function (Produksi $row) {
                 return $row->tanggal ? date('d M Y', $row->tanggal) : '-';
             })
             ->rawColumns(['action', 'resep_nama', 'tanggal', 'sisa_produksi'])
