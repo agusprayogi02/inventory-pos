@@ -129,16 +129,13 @@ class StokGudangController extends Controller
             ->addColumn('user', function ($row) {
                 return $row->user->name ?? '-';
             })
-            ->addColumn('sisa_stok', function ($row) {
-                return $row->sisaStokKitchen();
-            })
             ->addColumn('exp_date', function ($row) {
                 return $row->exp_date ? date('d-m-Y', strtotime($row->exp_date)) : '-';
             })
             ->addColumn('action', function (StokGudang $row) {
                 return view('stok-gudang.action-show', compact('row'));
             })
-            ->rawColumns(['jumlah', 'status', 'tanggal', 'user', 'exp_date', 'sisa_stok', 'action'])
+            ->rawColumns(['jumlah', 'status', 'tanggal', 'user', 'exp_date', 'action'])
             ->make(true);
     }
 }

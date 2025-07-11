@@ -1,13 +1,13 @@
 <div class="btn-group" role="group">
-    <a href="#" class="btn btn-sm btn-warning"
-        onclick="addStokGudang({{ $row->id }}, '{{ $row->nama }}', {{ $row->jumlah_min }}, '{{ $row->satuan->nama }}', '{{ \App\Enums\StokStatus::PLUS->value }}')">
-        <i class="fas fa-plus"></i> Tambah Stok
-    </a>
-    <a href="{{ route('stok-gudang.show', $row->id) }}" class="btn btn-sm btn-info">
-        <i class="fas fa-eye"></i> Detail Stok
-    </a>
-    <button type="button" class="btn btn-sm btn-danger"
-        onclick="addStokGudang({{ $row->id }}, '{{ $row->nama }}', {{ $row->jumlah_min }}, '{{ $row->satuan->nama }}', '{{ \App\Enums\StokStatus::MINUS->value }}')">
-        <i class="fas fa-minus"></i> Kurangi Stok
+    <button class="btn btn-info btn-sm" onclick="showDetailStokKitchen({{ $row->id }}, '{{ $row->nama }}')">
+        <i class="fas fa-info-circle"></i> Detail
+    </button>
+    <button class="btn btn-success btn-sm"
+        onclick="showInputManualStok({{ $row->id }}, '{{ $row->nama }}', {{ $row->jumlah_min }})">
+        <i class="fas fa-plus"></i> Tambah Bahan
+    </button>
+    <button class="btn btn-warning btn-sm"
+        onclick="showInputStokKitchen({{ $row->id }}, '{{ $row->nama }}', {{ $row->jumlah_min }})">
+        <i class="fas fa-minus"></i> Input Sisa Stok
     </button>
 </div>

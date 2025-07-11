@@ -35,9 +35,19 @@ class Bahan extends Model
         return $this->hasMany(StokGudang::class);
     }
 
+    public function stokKitchen(): HasMany
+    {
+        return $this->hasMany(StokKitchen::class);
+    }
+
     public function jumlahStokGudang()
     {
-        return $this->jumlahStokGudangMasuk() - $this->jumlahStokGudangKeluar();
+        return $this->jumlahStokGudangMasuk() - ($this->jumlahStokGudangKeluar() + $this->jumlahStokKitMasuk());
+    }
+
+    public function jumlahStokKitMasuk()
+    {
+        return $this->stokKitchen()->where('status', StokStatus::PLUS->value)->sum('jumlah');
     }
 
     public function jumlahStokGudangMasuk()
@@ -45,8 +55,24 @@ class Bahan extends Model
         return $this->stokGudang()->where('status', StokStatus::PLUS->value)->sum('jumlah');
     }
 
+
     public function jumlahStokGudangKeluar()
     {
         return $this->stokGudang()->where('status', StokStatus::MINUS->value)->sum('jumlah');
+    }
+
+    public function stokRealMasuk()
+    {
+        return $this->stokKitchen()->where('status', StokStatus::PLUS->value)->sum('jumlah_real');
+    }
+
+    public function stokRealKeluar()
+    {
+        return $this->stokKitchen()->where('status', StokStatus::MINUS->value)->sum('jumlah_real');
+    }
+
+    public function sisaStokReal()
+    {
+        return $this->stokRealMasuk() - $this->stokRealKeluar();
     }
 }

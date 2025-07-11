@@ -14,20 +14,15 @@ class StokKitchen extends Model
 
     protected $fillable = [
         'bahan_id',
-        'stok_gudang_id',
         'jumlah',
         'tanggal',
         'status',
+        'jumlah_real',
     ];
 
     public function bahan(): BelongsTo
     {
         return $this->belongsTo(Bahan::class);
-    }
-
-    public function jumlahOnGram()
-    {
-        return $this->jumlah * $this->bahan->jumlah_min;
     }
 
     public function stokGudang(): BelongsTo

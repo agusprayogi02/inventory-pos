@@ -35,16 +35,12 @@ class StokGudang extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function stokKitchen(): HasMany
-    {
-        return $this->hasMany(StokKitchen::class);
-    }
 
-    public function sisaStokKitchen()
+    public function sisaStokGudang()
     {
-        return $this->status == StokStatus::MINUS->value ? '-' : $this->jumlah - ($this->stokKitchen()->sum('jumlah')
-            + $this->where('stok_gudang_ref', $this->id)->where('status', StokStatus::MINUS->value)
-                ->sum('jumlah'));
+        $jumSendiri = $this->where('stok_gudang_ref', $this->id)->where('status', StokStatus::MINUS->value)
+            ->sum('jumlah');
+        return $this->status == StokStatus::MINUS->value ? '-' : $this->jumlah - $jumSendiri;
     }
 
     protected function casts(): array

@@ -27,8 +27,10 @@
             @csrf
             <input type="hidden" name="stok_gudang_ref" id="add-stok_gudang_ref_input">
             <input type="hidden" name="changed_id" id="add-changed_id_input">
-            <x-adminlte.form.input name="sisa_stok" id="add-sisa-stok" label="Sisa Stok" type="number"
-                placeholder="Sisa Stok" readonly />
+            <div id="group-sisa-stok">
+                <x-adminlte.form.input name="sisa_stok" id="add-sisa-stok" label="Sisa Stok" type="number"
+                    placeholder="Sisa Stok" readonly />
+            </div>
             <x-adminlte.form.input name="jumlah" id="add-jumlah" label="Jumlah" type="number" placeholder="Jumlah"
                 required />
             <x-adminlte.form.input name="tanggal" id="add-tanggal" label="Tanggal" type="date" placeholder="Tanggal"
@@ -51,13 +53,12 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <x-adminlte.tool.datatable id="stok-gudang-detail-tables" :heads="['Tanggal', 'Exp Date', 'Status', 'Jumlah', 'Sisa Stok', 'User', 'Aksi']" :config="[
+                    <x-adminlte.tool.datatable id="stok-gudang-detail-tables" :heads="['Tanggal', 'Exp Date', 'Status', 'Jumlah', 'User', 'Aksi']" :config="[
                         'columns' => [
                             ['data' => 'tanggal'],
                             ['data' => 'exp_date'],
                             ['data' => 'status'],
                             ['data' => 'jumlah'],
-                            ['data' => 'sisa_stok'],
                             ['data' => 'user'],
                             ['data' => 'action', 'orderable' => false, 'searchable' => false],
                         ],
@@ -88,7 +89,7 @@
 
         function changeStokGudang(id, sisaStok, changedId, jumlah, tanggal, keterangan) {
             $('#add-stok_gudang_ref_input').val(id);
-            $('#add-sisa-stok').val(sisaStok);
+            $('#group-sisa-stok').addClass('d-none');
             $('#add-changed_id_input').val(changedId);
             $('#add-jumlah').val(jumlah);
             $('#add-tanggal').val(tanggal);

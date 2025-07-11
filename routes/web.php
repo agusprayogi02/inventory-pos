@@ -50,6 +50,9 @@ Route::middleware(['auth'])->prefix("transaksi")->group(function () {
     Route::get('stok-kitchen/select2', [StokKitchenController::class, 'select2'])->name('stok-kitchen.select2');
     Route::resource('stok-kitchen', StokKitchenController::class)
         ->names('stok-kitchen');
+    Route::get('stok-kitchen/resep/{resep}/bahan', [StokKitchenController::class, 'getResepBahan'])->name('stok-kitchen.resep.bahan');
+    Route::post('stok-kitchen/resep/{resep}/proses', [StokKitchenController::class, 'prosesResepBahan'])->name('stok-kitchen.resep.proses');
+    Route::get('stok-kitchen/detail/{bahanId}', [StokKitchenController::class, 'detail'])->name('stok-kitchen.detail');
 
     // stok produk
     Route::get('stok-produk/data', [StokProdukController::class, 'data'])->name('stok-produk.data');

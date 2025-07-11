@@ -47,7 +47,7 @@
                 required />
             <x-adminlte.form.input name="tanggal" id="add-tanggal" label="Tanggal Stok" type="date"
                 placeholder="Tanggal Stok" required />
-            <x-adminlte.form.input name="exp_date" label="Exp Date" type="date" placeholder="Exp Date" required />
+            <x-adminlte.form.input name="exp_date" label="Exp Date" type="date" placeholder="Exp Date" />
             <x-adminlte.form.textarea name="keterangan" id="add-keterangan" label="Keterangan" placeholder="Keterangan" />
             <x-slot name="footerSlot">
                 <x-adminlte-button class="mr-auto" type="submit" theme="success" label="Submit" form="form-stok-gudang" />

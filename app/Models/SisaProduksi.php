@@ -12,14 +12,8 @@ class SisaProduksi extends Model
     protected $table = "sisa_produksi";
 
     protected $fillable = [
-        'produksi_id',
         'jumlah',
         'status',
         'keterangan',
     ];
-
-    public function produksi(): BelongsTo
-    {
-        return $this->belongsTo(Produksi::class);
-    }
 }

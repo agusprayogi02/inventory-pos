@@ -6,7 +6,6 @@ use App\Http\Requests\ProduksiRequest;
 use App\Http\Requests\StokProdukRequest;
 use App\Models\Produksi;
 use App\Models\StokProduk;
-use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 class ProduksiController extends Controller
