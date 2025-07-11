@@ -10,7 +10,6 @@ class StokProdukRequest extends FormRequest
     {
         return [
             'produksi_id' => ['required', 'exists:produksi,id'],
-            'produk_id' => ['required', 'exists:produk,id'],
             'jumlah' => ['required', 'integer'],
             'keterangan' => ['nullable'],
             'is_produksi' => ['nullable', 'boolean'],

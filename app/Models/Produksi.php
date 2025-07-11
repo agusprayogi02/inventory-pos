@@ -14,14 +14,14 @@ class Produksi extends Model
     protected $table = 'produksi';
 
     protected $fillable = [
-        'resep_id',
+        'produk_id',
         'jumlah',
         'tanggal',
     ];
 
-    public function resep(): BelongsTo
+    public function produk(): BelongsTo
     {
-        return $this->belongsTo(Resep::class);
+        return $this->belongsTo(Produk::class);
     }
 
     public function stokProduk(): HasMany
@@ -29,13 +29,9 @@ class Produksi extends Model
         return $this->hasMany(StokProduk::class);
     }
 
-    public function sisaProduksi()
+    public function getJumlahProduksiAttribute()
     {
-        if ($this->stokProduk()->count() > 0) {
-            $isi = $this->stokProduk()->first('produk_id')->produk->isi;
-            return $this->jumlah - ($this->stokProduk()->sum('jumlah') * $isi);
-        }
-        return $this->jumlah;
+        return $this->stokProduk()->sum('jumlah');
     }
 
     protected function casts(): array

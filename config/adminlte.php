@@ -352,15 +352,15 @@ return [
             'url' => 'transaksi/stok-kitchen',
             'icon' => 'fas fa-fw fa-box-open',
         ],
-        [
-            'text' => 'stok_produk',
-            'url' => 'transaksi/stok-produk',
-            'icon' => 'fas fa-fw fa-boxes-packing',
-        ],
+        // [
+        //     'text' => 'stok_produk',
+        //     'url' => 'transaksi/stok-produk',
+        //     'icon' => 'fas fa-fw fa-boxes-packing',
+        // ],
         ['header' => 'produksi'],
         [
-            'text' => 'hasil_produksi',
-            'url' => 'produksi/hasil-produksi',
+            'text' => 'target_produksi',
+            'url' => 'produksi/target-produksi',
             'icon' => 'fas fa-fw fa-check-circle',
         ],
         // [

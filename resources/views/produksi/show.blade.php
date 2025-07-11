@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Produksi Detail Stok ' . $produksi->resep->nama)
+@section('title', 'Produksi Stok ' . $produksi->produk->nama)
 
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesPlugins', true)
@@ -9,37 +9,25 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Produksi Detail Stok {{ $produksi->resep->nama }}</h1>
+            <h1>Produksi Stok {{ $produksi->produk->nama }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('adminlte::menu.home') }}</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('produksi.index') }}">{{ __('adminlte::menu.produksi') }}</a>
                 </li>
-                <li class="breadcrumb-item active">Produksi Detail Stok {{ $produksi->resep->nama }}</li>
+                <li class="breadcrumb-item active">Produksi Stok {{ $produksi->produk->nama }}</li>
             </ol>
         </div>
     </div>
 @endsection
 
 @section('content')
-    <x-adminlte-modal id="add-stok" title="Tambah Stok" size="md" theme="success" icon="fas fa-plus" v-centered
+    <x-adminlte-modal id="add-stok" title="Tambah Stok Produk" size="md" theme="success" icon="fas fa-plus" v-centered
         static-backdrop scrollable>
         <form action="{{ route('produksi.stok.store', $produksi->id) }}" method="post" id="form-stok">
             @csrf
             <input type="hidden" name="produksi_id" value="{{ $produksi->id }}">
-            <x-adminlte.form.select2 id="add-produk_id" name="produk_id" label="Produk" :config="[
-                'allowClear' => true,
-                'theme' => 'bootstrap4',
-                'placeholder' => 'Pilih Produk',
-                'ajax' => [
-                    'url' => route('produk.select2'),
-                    'type' => 'GET',
-                    'data' => [
-                        'resep_id' => $produksi->resep_id,
-                    ],
-                ],
-            ]" />
             <x-adminlte.form.input name="jumlah" label="Jumlah" type="number" placeholder="Jumlah" required>
                 <x-slot name="appendSlot">
                     <span class="input-group-text">
@@ -62,18 +50,6 @@
             @method('PUT')
             <input type="hidden" name="produksi_id" value="{{ $produksi->id }}">
             <input type="hidden" name="is_produksi" value="1">
-            <x-adminlte.form.select2 id="edit-produk_id" name="produk_id" label="Produk" :config="[
-                'allowClear' => true,
-                'theme' => 'bootstrap4',
-                'placeholder' => 'Pilih Produk',
-                'ajax' => [
-                    'url' => route('produk.select2'),
-                    'type' => 'GET',
-                    'data' => [
-                        'resep_id' => $produksi->resep_id,
-                    ],
-                ],
-            ]" />
             <x-adminlte.form.input name="jumlah" id="edit-jumlah" label="Jumlah" type="number" placeholder="Jumlah"
                 required>
                 <x-slot name="appendSlot">
@@ -129,18 +105,9 @@
 
 @section('js')
     <script>
-        function editStok(id, produk_id, produk_nama, jumlah, keterangan) {
+        function editStok(id, jumlah, keterangan) {
             $('#edit-stok #edit-form').attr('action',
                 '{{ route('stok-produk.update', [':id']) }}'.replace(':id', id));
-
-            let $select = $('#edit-stok #edit-produk_id');
-            if ($select.find("option[value='" + produk_id + "']").length) {
-                $select.val(produk_id).trigger('change');
-            } else {
-                // If option not exist, create it and select
-                let newOption = new Option(produk_nama, produk_id, true, true);
-                $select.append(newOption).trigger('change');
-            }
 
             $('#edit-stok #edit-jumlah').val(jumlah);
             $('#edit-stok #edit-keterangan').val(keterangan);

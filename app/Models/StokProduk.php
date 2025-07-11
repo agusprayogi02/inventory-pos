@@ -14,7 +14,6 @@ class StokProduk extends Model
 
     protected $fillable = [
         'produksi_id',
-        'produk_id',
         'jumlah',
         'keterangan',
     ];
@@ -22,10 +21,5 @@ class StokProduk extends Model
     public function produksi(): BelongsTo
     {
         return $this->belongsTo(Produksi::class);
-    }
-
-    public function produk(): BelongsTo
-    {
-        return $this->belongsTo(Produk::class);
     }
 }

@@ -12,13 +12,19 @@ class ProduksiController extends Controller
 {
     public function data()
     {
-        $produksi = Produksi::with('resep:id,nama')->get();
+        $produksi = Produksi::with('produk:id,nama')->get();
         return DataTables::of($produksi)
-            ->addColumn('resep_nama', function (Produksi $row) {
-                return $row->resep ? $row->resep->nama : '-';
+            ->addColumn('produk_nama', function (Produksi $row) {
+                return $row->produk ? $row->produk->nama : '-';
+            })
+            ->addColumn('target', function (Produksi $row) {
+                return $row->jumlah;
+            })
+            ->addColumn('tercapai', function (Produksi $row) {
+                return $row->jumlah_produksi;
             })
             ->addColumn('sisa_produksi', function (Produksi $row) {
-                return $row->sisaProduksi();
+                return $row->jumlah_produksi - $row->jumlah;
             })
             ->addColumn('action', function (Produksi $row) {
                 return view('produksi.action', compact('row'));
@@ -26,7 +32,7 @@ class ProduksiController extends Controller
             ->addColumn('tanggal', function (Produksi $row) {
                 return $row->tanggal ? date('d M Y', $row->tanggal) : '-';
             })
-            ->rawColumns(['action', 'resep_nama', 'tanggal', 'sisa_produksi'])
+            ->rawColumns(['action', 'produk_nama', 'tanggal', 'target', 'tercapai', 'sisa_produksi'])
             ->make(true);
     }
 
@@ -76,7 +82,7 @@ class ProduksiController extends Controller
 
     public function show($id)
     {
-        $produksi = Produksi::with('resep:id,nama')->find($id);
+        $produksi = Produksi::with('produk:id,nama')->find($id);
         return view('produksi.show', compact('produksi'));
     }
 
@@ -90,18 +96,18 @@ class ProduksiController extends Controller
 
     public function dataStokProduk($id)
     {
-        $stokProduk = StokProduk::with('produk:id,nama,satuan_id')
+        $stokProduk = StokProduk::with('produksi:id,produk_id', 'produksi.produk:id,nama,satuan_id', 'produksi.produk.satuan:id,nama')
             ->where('produksi_id', $id)
             ->orderBy('created_at', 'desc');
         return DataTables::of($stokProduk)
             ->addColumn('produk_nama', function ($row) {
-                return $row->produk ? $row->produk->nama : '-';
+                return $row->produksi->produk ? $row->produksi->produk->nama : '-';
             })
             ->addColumn('tanggal', function (StokProduk $row) {
                 return $row->created_at ? date('d M Y', strtotime($row->created_at)) : '-';
             })
             ->addColumn('jumlah', function ($row) {
-                return $row->jumlah . ' ' . $row->produk->satuan->nama;
+                return $row->jumlah . ' ' . $row->produksi->produk->satuan->nama;
             })
             ->addColumn('action', function ($row) {
                 return view('produksi.action-stok', compact('row'));

@@ -62,10 +62,10 @@ Route::middleware(['auth'])->prefix("transaksi")->group(function () {
 });
 
 Route::middleware(['auth'])->prefix("produksi")->group(function () {
-    Route::get('hasil-produksi/data', [ProduksiController::class, 'data'])->name('produksi.data');
-    Route::get('hasil-produksi/select2', [ProduksiController::class, 'select2'])->name('produksi.select2');
-    Route::post('hasil-produksi/{id}/stok', [ProduksiController::class, 'storeStokProduk'])->name('produksi.stok.store');
-    Route::get('hasil-produksi/{id}/stok/data', [ProduksiController::class, 'dataStokProduk'])->name('produksi.stok.data');
-    Route::resource('hasil-produksi', ProduksiController::class)
+    Route::get('target-produksi/data', [ProduksiController::class, 'data'])->name('produksi.data');
+    Route::get('target-produksi/select2', [ProduksiController::class, 'select2'])->name('produksi.select2');
+    Route::post('target-produksi/{id}/stok', [ProduksiController::class, 'storeStokProduk'])->name('produksi.stok.store');
+    Route::get('target-produksi/{id}/stok/data', [ProduksiController::class, 'dataStokProduk'])->name('produksi.stok.data');
+    Route::resource('target-produksi', ProduksiController::class)
         ->names('produksi');
 });
