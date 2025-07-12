@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Target Produksi')
+@section('title', 'Rekapan Produksi')
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesPlugins', true)
 @section('plugins.Select2', true)
@@ -16,19 +16,19 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>{{ __('adminlte::menu.target_produksi') }}</h1>
+            <h1>{{ __('adminlte::menu.rekapan_produksi') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('adminlte::menu.home') }}</a></li>
-                <li class="breadcrumb-item active">{{ __('adminlte::menu.target_produksi') }}</li>
+                <li class="breadcrumb-item active">{{ __('adminlte::menu.rekapan_produksi') }}</li>
             </ol>
         </div>
     </div>
 @endsection
 
 @section('content')
-    <x-adminlte-modal id="add-produksi" title="Tambah Target Produksi" size="md" theme="success" icon="fas fa-plus"
+    <x-adminlte-modal id="add-produksi" title="Tambah Target Harian" size="md" theme="success" icon="fas fa-plus"
         v-centered static-backdrop scrollable>
         <form action="{{ route('produksi.store') }}" method="post" id="form-produksi">
             @csrf
@@ -58,7 +58,7 @@
         </form>
     </x-adminlte-modal>
 
-    <x-adminlte-modal id="edit-produksi" title="Edit Target Produksi" size="md" theme="warning" icon="fas fa-edit"
+    <x-adminlte-modal id="edit-produksi" title="Edit Target Harian" size="md" theme="warning" icon="fas fa-edit"
         v-centered static-backdrop scrollable>
         <form action="{{ route('produksi.update', ':id') }}" method="post" id="edit-form">
             @csrf

@@ -359,8 +359,8 @@ return [
         // ],
         ['header' => 'produksi'],
         [
-            'text' => 'target_produksi',
-            'url' => 'produksi/target-produksi',
+            'text' => 'rekapan_produksi',
+            'url' => 'produksi/rekapan-produksi',
             'icon' => 'fas fa-fw fa-check-circle',
         ],
         [

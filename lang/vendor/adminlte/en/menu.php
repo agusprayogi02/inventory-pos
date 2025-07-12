@@ -31,4 +31,5 @@ return [
     'stok_produk' => 'Stok Produk',
     'target_produksi' => 'Target Produksi',
     'sisa_produksi' => 'Sisa Produksi',
+    'rekapan_produksi' => 'Rekapan Produksi',
 ];
