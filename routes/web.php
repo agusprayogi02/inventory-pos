@@ -5,6 +5,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\SatuanController;
+use App\Http\Controllers\SisaProduksiController;
 use App\Http\Controllers\StokGudangController;
 use App\Http\Controllers\StokKitchenController;
 use App\Http\Controllers\StokProdukController;
@@ -68,4 +69,8 @@ Route::middleware(['auth'])->prefix("produksi")->group(function () {
     Route::get('target-produksi/{id}/stok/data', [ProduksiController::class, 'dataStokProduk'])->name('produksi.stok.data');
     Route::resource('target-produksi', ProduksiController::class)
         ->names('produksi');
+
+    Route::get('sisa-produksi/data', [SisaProduksiController::class, 'data'])->name('sisa-produksi.data');
+    Route::resource('sisa-produksi', SisaProduksiController::class)
+        ->names('sisa-produksi');
 });

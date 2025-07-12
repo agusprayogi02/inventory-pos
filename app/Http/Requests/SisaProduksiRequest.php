@@ -11,6 +11,8 @@ class SisaProduksiRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'produk_id' => ['required', 'exists:produk,id'],
+            'tanggal' => ['required', 'date'],
             'jumlah' => ['required', 'integer'],
             'status' => ['required', Rule::in(StatusSisaProduksi::BAIK->value, StatusSisaProduksi::RUSAK->value, StatusSisaProduksi::KEDALUARSA->value, StatusSisaProduksi::KECIL->value, StatusSisaProduksi::BESAR->value)],
             'keterangan' => ['nullable', 'string'],

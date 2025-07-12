@@ -30,4 +30,5 @@ return [
     'transaksi' => 'TRANSAKSI',
     'stok_produk' => 'Stok Produk',
     'target_produksi' => 'Target Produksi',
+    'sisa_produksi' => 'Sisa Produksi',
 ];

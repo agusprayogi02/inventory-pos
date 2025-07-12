@@ -363,6 +363,11 @@ return [
             'url' => 'produksi/target-produksi',
             'icon' => 'fas fa-fw fa-check-circle',
         ],
+        [
+            'text' => 'sisa_produksi',
+            'url' => 'produksi/sisa-produksi',
+            'icon' => 'fas fa-fw fa-box-open',
+        ],
         // [
         //     'text' => 'multilevel',
         //     'icon' => 'fas fa-fw fa-share',

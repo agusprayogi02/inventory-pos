@@ -20,6 +20,7 @@ return new class extends Migration {
                 StatusSisaProduksi::BESAR->value,
             ])->after('jumlah');
             $table->string('keterangan')->nullable()->after('status');
+            $table->date('tanggal')->nullable()->after('produk_id');
         });
     }
 
@@ -31,6 +32,7 @@ return new class extends Migration {
         Schema::table('sisa_produksi', function (Blueprint $table) {
             $table->dropColumn('status');
             $table->dropColumn('keterangan');
+            $table->dropColumn('tanggal');
         });
     }
 };
