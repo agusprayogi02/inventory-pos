@@ -18,6 +18,12 @@ else
   error_exit "Git pull failed"
 fi
 
+log_info "Composer install latest version"
+composer install
+
+log_info "Optimize cache for all"
+php artisan optimize:clear
+
 log_info "Step 3: Starting services..."
 supervisorctl reread
 supervisorctl update
