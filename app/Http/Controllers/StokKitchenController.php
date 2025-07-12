@@ -56,7 +56,7 @@ class StokKitchenController extends Controller
             if ($request->jumlah_real > $stok) {
                 return redirect()->route('stok-kitchen.index')->with('error', 'Jumlah tidak boleh lebih dari sisa stok');
             }
-            $data['jumlah_real'] = $stok - $request->jumlah;
+            $data['jumlah_real'] = $stok - $request->jumlah_real;
         }
         StokKitchen::create($data);
         return redirect()->route('stok-kitchen.index')->with('success', 'Stok Kitchen berhasil ditambahkan');
