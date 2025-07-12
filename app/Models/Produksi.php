@@ -17,6 +17,7 @@ class Produksi extends Model
         'produk_id',
         'jumlah',
         'tanggal',
+        'keterangan',
     ];
 
     public function produk(): BelongsTo

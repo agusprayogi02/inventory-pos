@@ -1,6 +1,6 @@
 <div class="btn-group" role="group">
     <a href="#" class="btn btn-sm btn-warning"
-        onclick="editProduksi({{ $row->id }}, '{{ $row->jumlah }}', '{{ date('Y-m-d', $row->tanggal) }}', '{{ $row->resep_id }}', '{{ addslashes($row->resep ? $row->resep->nama : '-') }}')">
+        onclick="editProduksi({{ $row->id }}, '{{ $row->jumlah }}', '{{ date('Y-m-d', $row->tanggal) }}', '{{ $row->resep_id }}', '{{ addslashes($row->resep ? $row->resep->nama : '-') }}', '{{ addslashes($row->keterangan) }}')">
         <i class="fas fa-edit"></i> Edit
     </a>
     <a href="{{ route('produksi.show', $row->id) }}" class="btn btn-sm btn-info">

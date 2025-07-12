@@ -12,6 +12,7 @@ class ProduksiRequest extends FormRequest
             'produk_id' => ['required', 'exists:produk,id'],
             'jumlah' => ['required', 'integer', 'min:1'],
             'tanggal' => ['required', 'date'],
+            'keterangan' => ['nullable']
         ];
     }
 

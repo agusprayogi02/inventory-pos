@@ -50,6 +50,7 @@
                     </span>
                 </x-slot>
             </x-adminlte.form.input>
+            <x-adminlte.form.textarea name="keterangan" label="Keterangan" placeholder="Keterangan" />
             <x-slot name="footerSlot">
                 <x-adminlte-button class="mr-auto" type="submit" theme="success" label="Submit" form="form-produksi" />
                 <x-adminlte-button theme="danger" label="Cancel" data-dismiss="modal" />
@@ -71,16 +72,16 @@
                     'type' => 'GET',
                 ],
             ]" />
-            <x-adminlte.form.input name="tanggal" id="edit-tanggal" label="Tanggal" type="date"
-                placeholder="Tanggal />
-            <x-adminlte.form.input name="jumlah" id="edit-jumlah"
-                label="Jumlah Target" type="number" placeholder="Jumlah" required>
+            <x-adminlte.form.input name="tanggal" id="edit-tanggal" label="Tanggal" type="date" placeholder="Tanggal" />
+            <x-adminlte.form.input name="jumlah" id="edit-jumlah" label="Jumlah Target" type="number" placeholder="Jumlah"
+                required>
                 <x-slot name="appendSlot">
                     <span class="input-group-text">
                         Pcs
                     </span>
                 </x-slot>
             </x-adminlte.form.input>
+            <x-adminlte.form.textarea name="keterangan" id="edit-keterangan" label="Keterangan" placeholder="Keterangan" />
             <x-slot name="footerSlot">
                 <x-adminlte-button class="mr-auto" type="submit" theme="warning" label="Submit" form="edit-form" />
                 <x-adminlte-button theme="danger" label="Cancel" data-dismiss="modal" />
@@ -97,7 +98,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <x-adminlte.tool.datatable id="produksi-tables" :heads="['Tanggal', 'Produk', 'Target', 'Tercapai', 'Sisa Produksi', 'Aksi']" :config="[
+                    <x-adminlte.tool.datatable id="produksi-tables" :heads="['Tanggal', 'Produk', 'Target', 'Tercapai', 'Sisa Produksi', 'Keterangan', 'Aksi']" :config="[
                         'ajax' => [
                             'url' => route('produksi.data'),
                             'type' => 'GET',
@@ -108,6 +109,7 @@
                             ['data' => 'target'],
                             ['data' => 'tercapai'],
                             ['data' => 'sisa_produksi'],
+                            ['data' => 'keterangan'],
                             ['data' => 'action', 'orderable' => false, 'searchable' => false],
                         ],
                         'processing' => true,
@@ -125,12 +127,12 @@
 
 @section('js')
     <script>
-        function editProduksi(id, jumlah, tanggal, produk_id, produk_nama) {
+        function editProduksi(id, jumlah, tanggal, produk_id, produk_nama, keterangan) {
             // Set values to edit modal
             $('#edit-produksi #edit-jumlah').val(jumlah);
             $('#edit-produksi #edit-tanggal').val(tanggal);
             $('#edit-produksi #edit-produk_id').val(produk_id).trigger('change');
-
+            $('#edit-produksi #edit-keterangan').val(keterangan);
             // Set value for resep select2
             let $produkSelect = $('#edit-produksi #edit-produk_id');
             if ($produkSelect.find("option[value='" + produk_id + "']").length) {

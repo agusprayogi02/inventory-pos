@@ -49,12 +49,12 @@ class StokKitchenController extends Controller
         }
         $jumlah = Bahan::query()->find($request->bahan_id)->jumlahStokGudang();
         if ($request->jumlah > $jumlah) {
-            return redirect()->route('stok-kitchen.index')->with('error', 'Jumlah tidak boleh lebih dari sisa stok');
+            return redirect()->route('stok-kitchen.index')->with('error', 'Jumlah tidak boleh lebih dari stok gudang!');
         }
         if ($request->status == StokStatus::MINUS->value) {
             $stok = Bahan::query()->find($request->bahan_id)->sisaStokReal();
             if ($request->jumlah_real > $stok) {
-                return redirect()->route('stok-kitchen.index')->with('error', 'Jumlah tidak boleh lebih dari sisa stok');
+                return redirect()->route('stok-kitchen.index')->with('error', 'Jumlah tidak boleh lebih dari sisa stok bahan!');
             }
             $data['jumlah_real'] = $stok - $request->jumlah_real;
         }
