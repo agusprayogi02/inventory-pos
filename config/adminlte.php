@@ -330,6 +330,7 @@ return [
                 PermissionsEnum::RESEP_VIEW_ALL->value,
                 PermissionsEnum::PRODUK_VIEW_ALL->value,
                 PermissionsEnum::STOK_GUDANG_VIEW_ALL->value,
+                PermissionsEnum::USER_VIEW_ALL->value,
             ]
         ],
         [
@@ -355,6 +356,12 @@ return [
             'url' => 'master/produk',
             'icon' => 'fas fa-fw fa-box',
             'can' => PermissionsEnum::PRODUK_VIEW_ALL->value,
+        ],
+        [
+            'text' => 'user management',
+            'url' => 'master/user',
+            'icon' => 'fas fa-fw fa-users',
+            'can' => PermissionsEnum::USER_VIEW_ALL->value,
         ],
         [
             'header' => 'transaksi',
@@ -459,12 +466,6 @@ return [
         //     'icon_color' => 'cyan',
         //     'url' => '#',
         // ],
-        [
-            'text' => 'user management',
-            'url' => 'master/user',
-            'icon' => 'fas fa-fw fa-users',
-            'can' => PermissionsEnum::USER_VIEW_ALL->value,
-        ],
     ],
 
     /*

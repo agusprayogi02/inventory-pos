@@ -24,9 +24,7 @@ class Bahan extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()
-            ->logOnly(['nama', 'jumlah_min', 'satuan_id'])
-            ->dontSubmitEmptyLogs();
+        return LogOptions::defaults();
     }
 
     public function satuan(): BelongsTo

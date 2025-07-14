@@ -25,8 +25,7 @@ class Produk extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()
-            ->setDescriptionForEvent(fn(string $eventName) => "This model has been {$eventName}");
+        return LogOptions::defaults();
     }
 
     public function resep(): BelongsTo

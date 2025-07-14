@@ -24,8 +24,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <x-adminlte.tool.datatable id="activity-log-tables" :heads="['Causer', 'Description', 'Created At']" :config="[
-                            'columns' => [['data' => 'causer'], ['data' => 'description'], ['data' => 'created_at']],
+                        <x-adminlte.tool.datatable id="activity-log-tables" :heads="['Causer', 'Created At', 'Description', 'Subject', 'Properties']" :config="[
+                            'columns' => [
+                                ['data' => 'causer'],
+                                ['data' => 'created_at'],
+                                ['data' => 'description'],
+                                ['data' => 'subject'],
+                                ['data' => 'changes'],
+                            ],
                             'processing' => true,
                             'serverSide' => true,
                             'ajax' => [
