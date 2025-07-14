@@ -67,7 +67,7 @@ class BahanController extends Controller
     {
     }
 
-    public function update(Request $request, $id)
+    public function update(BahanRequest $request, $id)
     {
         $bahan = Bahan::findOrFail($id);
         $bahan->update($request->validated());

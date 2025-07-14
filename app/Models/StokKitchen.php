@@ -14,6 +14,7 @@ class StokKitchen extends Model
 
     protected $fillable = [
         'bahan_id',
+        'user_id',
         'jumlah',
         'tanggal',
         'status',
@@ -23,6 +24,11 @@ class StokKitchen extends Model
     public function bahan(): BelongsTo
     {
         return $this->belongsTo(Bahan::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function stokGudang(): BelongsTo

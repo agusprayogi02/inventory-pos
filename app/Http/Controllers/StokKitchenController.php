@@ -31,9 +31,22 @@ class StokKitchenController extends Controller
             ->make(true);
     }
 
-    public function select2()
+    public function dataStokKitchen($bahanId)
     {
-
+        $data = StokKitchen::query()->where('bahan_id', $bahanId);
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('tanggal', function (StokKitchen $row) {
+                return $row->tanggal ? date('d M Y', strtotime($row->tanggal)) : '-';
+            })
+            ->addColumn('jumlah', function ($row) {
+                return $row->jumlah . ' ' . $row->bahan->satuan->nama;
+            })
+            ->addColumn('status', function ($row) {
+                return $row->status == StokStatus::PLUS->value ? 'Masuk' : 'Keluar';
+            })
+            ->rawColumns(['tanggal', 'jumlah', 'status'])
+            ->make(true);
     }
 
     public function index()
@@ -58,6 +71,7 @@ class StokKitchenController extends Controller
             }
             $data['jumlah_real'] = $stok - $request->jumlah_real;
         }
+        $data['user_id'] = auth()->id();
         StokKitchen::create($data);
         return redirect()->route('stok-kitchen.index')->with('success', 'Stok Kitchen berhasil ditambahkan');
     }
@@ -69,7 +83,9 @@ class StokKitchenController extends Controller
 
     public function update(StokKitchenRequest $request, StokKitchen $stokKitchen)
     {
-        $stokKitchen->update($request->validated());
+        $data = $request->validated();
+        $data['user_id'] = auth()->id();
+        $stokKitchen->update($data);
 
         return $stokKitchen;
     }
@@ -84,12 +100,13 @@ class StokKitchenController extends Controller
     public function getResepBahan($resepId)
     {
         Resep::findOrFail($resepId, ['id']);
+        $jumlah = request()->query('jumlah');
         $bahanList = ResepBahan::with('bahan')
             ->where('resep_id', $resepId)
             ->get()
-            ->map(function ($item) {
+            ->map(function ($item) use ($jumlah) {
                 $jumlah_min = $item->bahan->jumlah_min;
-                $dibutuhkan = $item->jumlah;
+                $dibutuhkan = $item->jumlah * $jumlah;
                 $kali = ceil($dibutuhkan / $jumlah_min);
                 $total_diambil = $kali * $jumlah_min;
                 $stok_tersedia = $item->bahan->jumlahStokGudang() * $jumlah_min;
@@ -108,18 +125,26 @@ class StokKitchenController extends Controller
 
     public function prosesResepBahan(Request $request, $resepId)
     {
-        Resep::findOrFail($resepId);
+        $data = $request->validate([
+            'jumlah' => ['required', 'integer', 'min:1'],
+        ]);
+
+        $resep = Resep::findOrFail($resepId);
         $bahanList = ResepBahan::with('bahan')
             ->where('resep_id', $resepId)
             ->get();
+
         $errors = [];
         $stokKitchenData = [];
+
         foreach ($bahanList as $item) {
             $jumlah_min = $item->bahan->jumlah_min;
-            $dibutuhkan = $item->jumlah;
+            $dibutuhkan = $item->jumlah * $data['jumlah'];  // Adjust the required quantity based on input 'jumlah'
+
             $kali = ceil($dibutuhkan / $jumlah_min);
             $total_diambil = $kali * $jumlah_min;
             $stok_tersedia = $item->bahan->jumlahStokGudang() * $jumlah_min;
+
             if ($stok_tersedia < $total_diambil) {
                 $errors[] = "Bahan {$item->bahan->nama} kurang, butuh {$total_diambil} {$item->bahan->satuan?->nama}, stok hanya {$stok_tersedia} {$item->bahan->satuan?->nama}";
             } else {
@@ -129,12 +154,15 @@ class StokKitchenController extends Controller
                     'tanggal' => now(),
                     'status' => StokStatus::PLUS->value, // PLUS
                     'jumlah_real' => $total_diambil,
+                    'user_id' => auth()->id(),
                 ];
             }
         }
+
         if (count($errors) > 0) {
             return response()->json(['success' => false, 'errors' => $errors], 422);
         }
+
         // Simpan batch
         DB::beginTransaction();
         try {
@@ -149,12 +177,14 @@ class StokKitchenController extends Controller
         }
     }
 
+
     public function detail($bahanId)
     {
-        $stokKitchen = StokKitchen::with(['stokGudang', 'bahan'])
+        $stokKitchen = StokKitchen::query()
+            ->with('user:id,name')
             ->where('bahan_id', $bahanId)
-            ->orderByDesc('tanggal')
-            ->get();
+            ->limit(50)
+            ->latest()->get();
         return view('stok-kitchen.detail', compact('stokKitchen'));
     }
 }

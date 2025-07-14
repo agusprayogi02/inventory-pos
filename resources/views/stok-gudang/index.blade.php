@@ -89,6 +89,11 @@
     </div>
 @endsection
 
+@php
+    // Ambil nilai dari config atau env, default 5 jika tidak ada
+    $minimalStok = config('inventory.minimal_stok', env('MINIMAL_STOK', 5));
+@endphp
+
 @section('js')
     <script>
         function addStokGudang(id, nama, jumlah, satuan, status) {
@@ -151,6 +156,25 @@
                 }
             });
         }
-    </script>
 
+        // Ganti 'MINIMAL_STOK' dengan nilai dari PHP
+        var MINIMAL_STOK = @json($minimalStok);
+        // Tambahkan rowCallback untuk mewarnai baris jika isi < 5
+        $(document).ready(function() {
+            var table = $('#stok-gudang-tables').DataTable();
+            table.on('draw', function() {
+                table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                    var data = this.data();
+                    var jumlah = data.jumlah !== undefined ? data.jumlah : (data[3] !== undefined ?
+                        data[3] : null);
+                    var min = MINIMAL_STOK;
+                    if (jumlah !== null && !isNaN(jumlah) && Number(jumlah) < min) {
+                        $(this.node()).css('background-color', '#f8d7da');
+                    } else {
+                        $(this.node()).css('background-color', '');
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

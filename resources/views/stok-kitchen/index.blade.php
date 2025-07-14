@@ -26,6 +26,16 @@
             <label for="select-resep">Pilih Resep</label>
             <select id="select-resep" class="form-control"></select>
         </div>
+        {{-- Tambah field jumlah dari resep --}}
+        <x-adminlte.form.input name="jumlah" id="jumlah_resep" label="Jumlah Resep" type="number"
+            placeholder="Jumlah Resep" required>
+            <x-slot name="appendSlot">
+                <div class="input-group-text">
+                    <span>Proses</span>
+                </div>
+            </x-slot>
+        </x-adminlte.form.input>
+
         <div id="resep-bahan-section" style="display:none;">
             <h5>Bahan Resep</h5>
             <table class="table table-bordered" id="resep-bahan-table">
@@ -100,8 +110,7 @@
                         ],
                         'pageLength' => 10,
                         'responsive' => true,
-                    ]">
-                    </x-adminlte.tool.datatable>
+                    ]" />
                 </div>
             </div>
         </div>
@@ -143,24 +152,49 @@
             let resepId = null;
             let bahanResep = [];
 
-            $('#select-resep').on('change', function() {
-                resepId = $(this).val();
-                if (!resepId) return;
-                $.get(`{{ url('transaksi/stok-kitchen/resep') }}/${resepId}/bahan`, function(res) {
-                    bahanResep = res.bahan;
-                    let tbody = '';
-                    bahanResep.forEach(function(row) {
-                        tbody += `<tr>
+            // tolong ambil jumlah dari resep
+            $('#jumlah_resep').on('change', function() {
+                let jumlah = $(this).val();
+                let resepId = $('#select-resep').val();
+                if (!jumlah) return;
+                $.get(`{{ url('transaksi/stok-kitchen/resep') }}/${resepId}/bahan?jumlah=${jumlah}`,
+                    function(res) {
+                        bahanResep = res.bahan;
+                        let tbody = '';
+                        bahanResep.forEach(function(row) {
+                            tbody += `<tr>
                             <td>${row.nama}</td>
                             <td>${row.jumlah_min} ${row.satuan}</td>
                             <td>${row.dibutuhkan} ${row.satuan}</td>
                             <td>${row.total_diambil} ${row.satuan}</td>
                             <td>${row.stok_tersedia} ${row.satuan}</td>
                         </tr>`;
+                        });
+                        $('#resep-bahan-table tbody').html(tbody);
+                        $('#resep-bahan-section').show();
                     });
-                    $('#resep-bahan-table tbody').html(tbody);
-                    $('#resep-bahan-section').show();
-                });
+            });
+
+            $('#select-resep').on('change', function() {
+                resepId = $(this).val();
+                let jumlah = $('#jumlah_resep').val();
+                if (!resepId || !jumlah) return;
+                $.get(`{{ url('transaksi/stok-kitchen/resep') }}/${resepId}/bahan?jumlah=${jumlah}`,
+                    function(res) {
+                        bahanResep = res.bahan;
+                        let tbody = '';
+                        bahanResep.forEach(function(row) {
+                            tbody += `<tr>
+                            <td>${row.nama}</td>
+                            <td>${row.jumlah_min} ${row.satuan}</td>
+                            <td>${row.dibutuhkan} ${row.satuan}</td>
+                            <td>${row.total_diambil} ${row.satuan}</td>
+                            <td>${row.stok_tersedia} ${row.satuan}</td>
+                        </tr>`;
+                        });
+                        $('#resep-bahan-table tbody').html(tbody);
+                        $('#resep-bahan-section').show();
+                    });
             });
 
             $('#proses-resep-btn').on('click', function() {
@@ -169,7 +203,8 @@
                     url: `{{ url('transaksi/stok-kitchen/resep') }}/${resepId}/proses`,
                     type: 'POST',
                     data: {
-                        _token: '{{ csrf_token() }}'
+                        _token: '{{ csrf_token() }}',
+                        jumlah: $('#jumlah_resep').val()
                     },
                     success: function(res) {
                         Swal.fire('Sukses', 'Berhasil menambah stok kitchen dari resep',

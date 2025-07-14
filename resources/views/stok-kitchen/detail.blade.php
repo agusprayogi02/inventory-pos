@@ -1,7 +1,8 @@
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
             <th>Tanggal</th>
+            <th>User</th>
             <th>Jumlah (gram)</th>
             <th>Status</th>
             <th>Keterangan</th>
@@ -11,6 +12,7 @@
         @forelse($stokKitchen as $row)
             <tr @if ($row->status == \App\Enums\StokStatus::MINUS->value) class="bg-red" @endif>
                 <td>{{ $row->tanggal ? date('d M Y', $row->tanggal) : '-' }}</td>
+                <td>{{ $row->user->name ?? '-' }}</td>
                 <td>{{ $row->jumlah_real }}</td>
                 <td>{{ $row->status == \App\Enums\StokStatus::PLUS->value ? 'Masuk' : 'Keluar' }}</td>
                 <td>{{ $row->keterangan ?? '-' }}</td>

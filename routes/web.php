@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\BahanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProduksiController;
@@ -45,10 +46,13 @@ Route::middleware(['auth'])->prefix("transaksi")->group(function () {
     Route::get('stok-gudang/select2', [StokGudangController::class, 'select2'])->name('stok-gudang.select2');
     Route::resource('stok-gudang', StokGudangController::class)
         ->names('stok-gudang');
-    Route::post('stok-gudang/kurangi', [StokGudangController::class, 'kurangiStok'])->name('stok-gudang.kurangi');
+    Route::post('stok-gudang/kurangi', [StokGudangController::class, 'kurangiStok'])
+        ->name('stok-gudang.kurangi');
     // stok kitchen
-    Route::get('stok-kitchen/data', [StokKitchenController::class, 'data'])->name('stok-kitchen.data');
-    Route::get('stok-kitchen/select2', [StokKitchenController::class, 'select2'])->name('stok-kitchen.select2');
+    Route::get('stok-kitchen/data', [StokKitchenController::class, 'data'])
+        ->name('stok-kitchen.data');
+    Route::get('stok-kitchen/data/{bahanId}', [StokKitchenController::class, 'dataStokKitchen'])
+        ->name('stok-kitchen.data-stok-kitchen');
     Route::resource('stok-kitchen', StokKitchenController::class)
         ->names('stok-kitchen');
     Route::get('stok-kitchen/resep/{resep}/bahan', [StokKitchenController::class, 'getResepBahan'])->name('stok-kitchen.resep.bahan');
@@ -73,4 +77,9 @@ Route::middleware(['auth'])->prefix("produksi")->group(function () {
     Route::get('sisa-produksi/data', [SisaProduksiController::class, 'data'])->name('sisa-produksi.data');
     Route::resource('sisa-produksi', SisaProduksiController::class)
         ->names('sisa-produksi');
+});
+
+Route::middleware(['auth'])->prefix('log')->group(function () {
+    Route::get('activity-log', [ActivityLogController::class, 'index'])->name('activity-log.index');
+    Route::get('activity-log/data', [ActivityLogController::class, 'data'])->name('activity-log.data');
 });

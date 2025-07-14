@@ -368,6 +368,12 @@ return [
             'url' => 'produksi/sisa-produksi',
             'icon' => 'fas fa-fw fa-box-open',
         ],
+        ['header' => 'log'],
+        [
+            'text' => 'activity_log',
+            'url' => 'log/activity-log',
+            'icon' => 'fas fa-fw fa-history',
+        ],
         // [
         //     'text' => 'multilevel',
         //     'icon' => 'fas fa-fw fa-share',

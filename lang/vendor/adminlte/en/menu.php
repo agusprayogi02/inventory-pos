@@ -19,7 +19,7 @@ return [
     'information' => 'Information',
     'bahan' => 'Bahan',
     'home' => 'Home',
-    'tambah' => 'Add New',
+    'tambah' => 'Tambah Data',
     'satuan' => 'Satuan',
     'resep' => 'Resep',
     'stok_gudang' => 'Stok Gudang',
@@ -32,4 +32,5 @@ return [
     'target_produksi' => 'Target Produksi',
     'sisa_produksi' => 'Sisa Produksi',
     'rekapan_produksi' => 'Rekapan Produksi',
+    'activity_log' => 'Activity Log',
 ];

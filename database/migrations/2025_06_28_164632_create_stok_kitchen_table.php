@@ -2,6 +2,7 @@
 
 use App\Enums\StokStatus;
 use App\Models\Bahan;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Bahan::class)->constrained()->cascadeOnDelete();
             $table->integer('jumlah')->comment('Jumlah stok yang di inputkan didasar dari stok gudang');
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamp('tanggal');
             $table->enum('status', [StokStatus::MINUS->value, StokStatus::PLUS->value]);
             $table->timestamps();
