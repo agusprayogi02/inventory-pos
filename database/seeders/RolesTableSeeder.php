@@ -35,14 +35,8 @@ class RolesTableSeeder extends Seeder
             getPermissionsByPrefix("produksi"),
         ));
 
-        $packingProduk = Role::create(['name' => RoleNameEnum::PACKING_PRODUK->value]);
+        $packingProduk = Role::create(['name' => RoleNameEnum::PACKING->value]);
         $packingProduk->givePermissionTo(array_merge(
-            getPermissionsByPrefix("produksi"),
-            getPermissionsByPrefix("sisa_produksi"),
-        ));
-
-        $packingKirim = Role::create(['name' => RoleNameEnum::PACKING_KIRIM->value]);
-        $packingKirim->givePermissionTo(array_merge(
             getPermissionsByPrefix("produksi"),
             getPermissionsByPrefix("sisa_produksi"),
         ));
