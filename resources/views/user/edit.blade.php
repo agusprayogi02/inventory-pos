@@ -15,24 +15,11 @@
                     <form action="{{ route('user.update', $user->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="form-group">
-                            <label for="name">Nama</label>
-                            <input type="text" name="name" class="form-control" required
-                                value="{{ old('name', $user->name) }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control" required
-                                value="{{ old('email', $user->email) }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password (kosongkan jika tidak ingin diubah)</label>
-                            <input type="password" name="password" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="password_confirmation">Konfirmasi Password</label>
-                            <input type="password" name="password_confirmation" class="form-control">
-                        </div>
+                        <x-adminlte.form.input name="name" label="Nama" type="text" :value="old('name', $user->name)" required />
+                        <x-adminlte.form.input name="email" label="Email" type="email" :value="old('email', $user->email)" required />
+                        <x-adminlte.form.input name="password" label="Password (kosongkan jika tidak ingin diubah)"
+                            type="password" />
+                        <x-adminlte.form.input name="password_confirmation" label="Konfirmasi Password" type="password" />
                         <div class="form-group">
                             <label for="roles">Roles</label>
                             <select name="roles[]" class="form-control select2" multiple required>
@@ -42,8 +29,11 @@
                                         {{ $role->name }}</option>
                                 @endforeach
                             </select>
+                            @error('roles')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <x-adminlte.form.button type="submit" theme="primary" label="Update" />
                         <a href="{{ route('user.index') }}" class="btn btn-secondary">Batal</a>
                     </form>
                 </div>
