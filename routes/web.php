@@ -38,6 +38,10 @@ Route::middleware(['auth'])->prefix("master")->group(function () {
     Route::get('produk/select2', [ProdukController::class, 'select2'])->name('produk.select2');
     Route::resource('produk', ProdukController::class)
         ->names('produk');
+
+    // User Management
+    Route::get('user/data', [\App\Http\Controllers\UserController::class, 'data'])->name('user.data');
+    Route::resource('user', \App\Http\Controllers\UserController::class)->names('user');
 });
 
 Route::middleware(['auth'])->prefix("transaksi")->group(function () {

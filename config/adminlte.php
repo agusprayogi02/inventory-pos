@@ -459,6 +459,12 @@ return [
         //     'icon_color' => 'cyan',
         //     'url' => '#',
         // ],
+        [
+            'text' => 'user management',
+            'url' => 'master/user',
+            'icon' => 'fas fa-fw fa-users',
+            'can' => PermissionsEnum::USER_VIEW_ALL->value,
+        ],
     ],
 
     /*
