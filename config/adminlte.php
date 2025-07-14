@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\PermissionsEnum;
+
 return [
 
     /*
@@ -320,53 +322,82 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
-        ['header' => 'master'],
+        [
+            'header' => 'master',
+            'can' => [
+                PermissionsEnum::BAHAN_VIEW_ALL->value,
+                PermissionsEnum::SATUAN_VIEW_ALL->value,
+                PermissionsEnum::RESEP_VIEW_ALL->value,
+                PermissionsEnum::PRODUK_VIEW_ALL->value,
+                PermissionsEnum::STOK_GUDANG_VIEW_ALL->value,
+            ]
+        ],
         [
             'text' => 'bahan',
             'url' => 'master/bahan',
             'icon' => 'fas fa-fw fa-utensils',
+            'can' => PermissionsEnum::BAHAN_VIEW_ALL->value,
         ],
         [
             'text' => 'satuan',
             'url' => 'master/satuan',
             'icon' => 'fas fa-fw fa-balance-scale',
+            'can' => PermissionsEnum::SATUAN_VIEW_ALL->value,
         ],
         [
             'text' => 'resep',
             'url' => 'master/resep',
             'icon' => 'fas fa-fw fa-book-open',
+            'can' => PermissionsEnum::RESEP_VIEW_ALL->value,
         ],
         [
             'text' => 'produk',
             'url' => 'master/produk',
             'icon' => 'fas fa-fw fa-box',
+            'can' => PermissionsEnum::PRODUK_VIEW_ALL->value,
         ],
-        ['header' => 'transaksi'],
+        [
+            'header' => 'transaksi',
+            'can' => [
+                PermissionsEnum::STOK_GUDANG_VIEW_ALL->value,
+                PermissionsEnum::STOK_KITCHEN_VIEW_ALL->value,
+            ]
+        ],
         [
             'text' => 'stok_gudang',
             'url' => 'transaksi/stok-gudang',
             'icon' => 'fas fa-fw fa-warehouse',
+            'can' => PermissionsEnum::STOK_GUDANG_VIEW_ALL->value,
         ],
         [
             'text' => 'stok_kitchen',
             'url' => 'transaksi/stok-kitchen',
             'icon' => 'fas fa-fw fa-box-open',
+            'can' => PermissionsEnum::STOK_KITCHEN_VIEW_ALL->value,
         ],
         // [
         //     'text' => 'stok_produk',
         //     'url' => 'transaksi/stok-produk',
         //     'icon' => 'fas fa-fw fa-boxes-packing',
         // ],
-        ['header' => 'produksi'],
+        [
+            'header' => 'produksi',
+            'can' => [
+                PermissionsEnum::PRODUKSI_VIEW_ALL->value,
+                PermissionsEnum::SISA_PRODUKSI_VIEW_ALL->value,
+            ]
+        ],
         [
             'text' => 'rekapan_produksi',
             'url' => 'produksi/rekapan-produksi',
             'icon' => 'fas fa-fw fa-check-circle',
+            'can' => PermissionsEnum::PRODUKSI_VIEW_ALL->value,
         ],
         [
             'text' => 'sisa_produksi',
             'url' => 'produksi/sisa-produksi',
             'icon' => 'fas fa-fw fa-box-open',
+            'can' => PermissionsEnum::SISA_PRODUKSI_VIEW_ALL->value,
         ],
         ['header' => 'log'],
         [

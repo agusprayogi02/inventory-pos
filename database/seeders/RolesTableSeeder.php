@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PermissionsEnum;
 use App\Enums\RoleNameEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+use function App\Enums\getPermissionsByPrefix;
 
 class RolesTableSeeder extends Seeder
 {
@@ -14,10 +16,35 @@ class RolesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(['name' => RoleNameEnum::ADMIN->value]);
-        Role::create(['name' => RoleNameEnum::GUDANG->value]);
-        Role::create(['name' => RoleNameEnum::KITCHEN->value]);
-        Role::create(['name' => RoleNameEnum::PACKING_PRODUK->value]);
-        Role::create(['name' => RoleNameEnum::PACKING_KIRIM->value]);
+        $admin = Role::create(['name' => RoleNameEnum::ADMIN->value]);
+        $admin->givePermissionTo(PermissionsEnum::values());
+
+        $gudang = Role::create(['name' => RoleNameEnum::GUDANG->value]);
+        $gudang->givePermissionTo(array_merge(
+            getPermissionsByPrefix("bahan"),
+            getPermissionsByPrefix("satuan"),
+            getPermissionsByPrefix("stok_gudang"),
+            getPermissionsByPrefix("produksi"),
+        ));
+
+        $kitchen = Role::create(['name' => RoleNameEnum::KITCHEN->value]);
+        $kitchen->givePermissionTo(array_merge(
+            getPermissionsByPrefix("resep"),
+            getPermissionsByPrefix("produk"),
+            getPermissionsByPrefix("stok_kitchen"),
+            getPermissionsByPrefix("produksi"),
+        ));
+
+        $packingProduk = Role::create(['name' => RoleNameEnum::PACKING_PRODUK->value]);
+        $packingProduk->givePermissionTo(array_merge(
+            getPermissionsByPrefix("produksi"),
+            getPermissionsByPrefix("sisa_produksi"),
+        ));
+
+        $packingKirim = Role::create(['name' => RoleNameEnum::PACKING_KIRIM->value]);
+        $packingKirim->givePermissionTo(array_merge(
+            getPermissionsByPrefix("produksi"),
+            getPermissionsByPrefix("sisa_produksi"),
+        ));
     }
 }

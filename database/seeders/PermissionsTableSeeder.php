@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PermissionsEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -13,12 +14,8 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::create(['name' => 'sisa_produksi']);
-        Permission::create(['name' => 'sisa_produksi_create']);
-        Permission::create(['name' => 'sisa_produksi_edit']);
-        Permission::create(['name' => 'sisa_produksi_delete']);
-        Permission::create(['name' => 'sisa_produksi_view']);
-        Permission::create(['name' => 'sisa_produksi_export']);
-        Permission::create(['name' => 'sisa_produksi_import']);
+        foreach (PermissionsEnum::cases() as $v) {
+            Permission::create(['name' => $v->value]);
+        }
     }
 }

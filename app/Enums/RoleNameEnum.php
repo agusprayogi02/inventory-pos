@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
-enum RoleNameEnum: string
+use Webfox\LaravelBackedEnums\BackedEnum;
+use Webfox\LaravelBackedEnums\IsBackedEnum;
+enum RoleNameEnum: string implements BackedEnum
 {
+    use IsBackedEnum;
+
     case ADMIN = 'admin';
     case GUDANG = 'gudang';
     case KITCHEN = 'kitchen';
