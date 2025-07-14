@@ -7,6 +7,9 @@ use App\Http\Requests\StokProdukRequest;
 use App\Models\Produksi;
 use App\Models\StokProduk;
 use Yajra\DataTables\DataTables;
+use App\Exports\ProduksiExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\Request;
 
 class ProduksiController extends Controller
 {
@@ -114,5 +117,18 @@ class ProduksiController extends Controller
             })
             ->rawColumns(['produk_nama', 'action', 'tanggal', 'jumlah'])
             ->make(true);
+    }
+
+    public function export(Request $request)
+    {
+        $dateRange = $request->input('date_range');
+        $dates = null;
+        if ($dateRange) {
+            $dates = explode(' - ', $dateRange);
+        }
+        if ($dates) {
+            return Excel::download(new ProduksiExport($dates), 'rekapan-produksi.xlsx');
+        }
+        return redirect()->back()->with('error', 'Tanggal tidak boleh kosong');
     }
 }

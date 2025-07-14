@@ -2,6 +2,7 @@
 
 @section('title', 'Rekapan Produksi')
 @section('plugins.Datatables', true)
+@section('plugins.DateRangePicker', true)
 @section('plugins.DatatablesPlugins', true)
 @section('plugins.Select2', true)
 
@@ -92,9 +93,26 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <a href="#" class="btn btn-primary" data-toggle="modal"
-                        data-target="#add-produksi">{{ __('adminlte::menu.tambah') }}</a>
+                <div class="card-header row">
+                    <div class="col-md-6">
+                        <a href="#" class="btn btn-primary" data-toggle="modal"
+                            data-target="#add-produksi">{{ __('adminlte::menu.tambah') }}</a>
+                    </div>
+                    <div class="col-md-6">
+                        <x-adminlte.form.date-range id="date-range" name="date_range" placeholder="Date Range"
+                            :config="[
+                                'locale' => [
+                                    'format' => 'YYYY-MM-DD',
+                                    'separator' => ' - ',
+                                ],
+                                'autoUpdateInput' => false,
+                            ]">
+                            <x-slot name="appendSlot">
+                                <x-adminlte-button theme="outline-primary" label="Export Excel" icon="fas fa-file-excel"
+                                    id="export-excel" />
+                            </x-slot>
+                        </x-adminlte.form.date-range>
+                    </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -126,7 +144,53 @@
 
 
 @section('js')
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script>
+        $(document).ready(function() {
+            // Date Range Picker
+            $('#date-range').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear',
+                    format: 'YYYY-MM-DD'
+                }
+            });
+            $('#date-range').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format(
+                    'YYYY-MM-DD'));
+                $('#produksi-tables').DataTable().ajax.reload();
+            });
+            $('#date-range').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+                $('#produksi-tables').DataTable().ajax.reload();
+            });
+
+            // DataTable: tambah parameter date range
+            let dt = $('#produksi-tables').DataTable();
+            dt.on('preXhr.dt', function(e, settings, data) {
+                data.date_range = $('#date-range').val();
+            });
+
+            // Export Excel
+            $('#export-excel').on('click', function(e) {
+                e.preventDefault();
+                let dateRange = $('#date-range').val();
+                if (!dateRange) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Pilih Rentang Tanggal',
+                        text: 'Silakan pilih rentang tanggal terlebih dahulu sebelum mengekspor data.',
+                        confirmButtonText: 'OK'
+                    });
+                    return;
+                }
+                let url = "{{ route('produksi.export') }}";
+                url += '?date_range=' + encodeURIComponent(dateRange);
+                window.location.href = url;
+            });
+        });
+
         function editProduksi(id, jumlah, tanggal, produk_id, produk_nama, keterangan) {
             // Set values to edit modal
             $('#edit-produksi #edit-jumlah').val(jumlah);

@@ -71,12 +71,14 @@ Route::middleware(['auth'])->prefix("produksi")->group(function () {
     Route::get('rekapan-produksi/select2', [ProduksiController::class, 'select2'])->name('produksi.select2');
     Route::post('rekapan-produksi/{id}/stok', [ProduksiController::class, 'storeStokProduk'])->name('produksi.stok.store');
     Route::get('rekapan-produksi/{id}/stok/data', [ProduksiController::class, 'dataStokProduk'])->name('produksi.stok.data');
+    Route::get('rekapan-produksi/export', [ProduksiController::class, 'export'])->name('produksi.export');
     Route::resource('rekapan-produksi', ProduksiController::class)
         ->names('produksi');
 
     Route::get('sisa-produksi/data', [SisaProduksiController::class, 'data'])->name('sisa-produksi.data');
     Route::resource('sisa-produksi', SisaProduksiController::class)
         ->names('sisa-produksi');
+
 });
 
 Route::middleware(['auth'])->prefix('log')->group(function () {
