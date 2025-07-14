@@ -53,6 +53,7 @@ Route::middleware(['auth'])->prefix("transaksi")->group(function () {
         ->name('stok-kitchen.data');
     Route::get('stok-kitchen/data/{bahanId}', [StokKitchenController::class, 'dataStokKitchen'])
         ->name('stok-kitchen.data-stok-kitchen');
+    Route::get('stok-kitchen/export', [StokKitchenController::class, 'export'])->name('stok-kitchen.export');
     Route::resource('stok-kitchen', StokKitchenController::class)
         ->names('stok-kitchen');
     Route::get('stok-kitchen/resep/{resep}/bahan', [StokKitchenController::class, 'getResepBahan'])->name('stok-kitchen.resep.bahan');

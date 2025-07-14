@@ -12,6 +12,8 @@ use App\Models\Bahan;
 use App\Models\StokGudang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\StokKitchenExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StokKitchenController extends Controller
 {
@@ -175,6 +177,15 @@ class StokKitchenController extends Controller
             DB::rollBack();
             return response()->json(['success' => false, 'errors' => [$e->getMessage()]], 500);
         }
+    }
+
+    public function export(Request $request)
+    {
+        $date = $request->input('date');
+        if (!$date) {
+            return redirect()->back()->with('error', 'Tanggal harus dipilih');
+        }
+        return Excel::download(new StokKitchenExport($date), 'stok-kitchen-' . $date . '.xlsx');
     }
 
 

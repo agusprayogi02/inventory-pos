@@ -91,8 +91,19 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <button class="btn btn-primary" id="open-resep-modal">Pilih Resep</button>
+                <div class="card-header row align-items-center">
+                    <div class="col-md-6 mb-2 mb-md-0">
+                        <button class="btn btn-primary" id="open-resep-modal">Pilih Resep</button>
+                    </div>
+                    <div class="col-md-6">
+                        <form id="export-stok-kitchen-form" class="form-inline float-md-right" method="GET"
+                            action="{{ route('stok-kitchen.export') }}">
+                            <input type="date" name="date" id="export-date" class="form-control mr-2"
+                                style="min-width: 180px; margin-right: 8px;" required />
+                            <x-adminlte-button type="submit" theme="outline-success" icon="fas fa-file-excel"
+                                label="Export Excel" id="export-stok-kitchen-btn" />
+                        </form>
+                    </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -224,6 +235,19 @@
                         }
                     }
                 });
+            });
+
+            $('#export-stok-kitchen-form').on('submit', function(e) {
+                if (!$('#export-date').val()) {
+                    e.preventDefault();
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Pilih Tanggal',
+                        text: 'Silakan pilih tanggal terlebih dahulu sebelum mengekspor data.',
+                        confirmButtonText: 'OK'
+                    });
+                    return false;
+                }
             });
         });
 
