@@ -18,42 +18,56 @@ enum PermissionsEnum: string implements BackedEnum
     case BAHAN_CREATE = 'bahan.create';
     case BAHAN_UPDATE = 'bahan.update';
     case BAHAN_DELETE = 'bahan.delete';
+    case BAHAN_RESTORE = 'bahan.restore';
+    case BAHAN_FORCE_DELETE = 'bahan.forceDelete';
 
     case PRODUK_VIEW_ALL = 'produk.viewAll';
     case PRODUK_VIEW = 'produk.view';
     case PRODUK_CREATE = 'produk.create';
     case PRODUK_UPDATE = 'produk.update';
     case PRODUK_DELETE = 'produk.delete';
+    case PRODUK_RESTORE = 'produk.restore';
+    case PRODUK_FORCE_DELETE = 'produk.forceDelete';
 
     case PRODUKSI_VIEW_ALL = 'produksi.viewAll';
     case PRODUKSI_VIEW = 'produksi.view';
     case PRODUKSI_CREATE = 'produksi.create';
     case PRODUKSI_UPDATE = 'produksi.update';
     case PRODUKSI_DELETE = 'produksi.delete';
+    case PRODUKSI_RESTORE = 'produksi.restore';
+    case PRODUKSI_FORCE_DELETE = 'produksi.forceDelete';
 
     case RESEP_VIEW_ALL = 'resep.viewAll';
     case RESEP_VIEW = 'resep.view';
     case RESEP_CREATE = 'resep.create';
     case RESEP_UPDATE = 'resep.update';
     case RESEP_DELETE = 'resep.delete';
+    case RESEP_RESTORE = 'resep.restore';
+    case RESEP_FORCE_DELETE = 'resep.forceDelete';
 
     case RESEP_BAHAN_VIEW_ALL = 'resep_bahan.viewAll';
     case RESEP_BAHAN_VIEW = 'resep_bahan.view';
     case RESEP_BAHAN_CREATE = 'resep_bahan.create';
     case RESEP_BAHAN_UPDATE = 'resep_bahan.update';
     case RESEP_BAHAN_DELETE = 'resep_bahan.delete';
+    case RESEP_BAHAN_RESTORE = 'resep_bahan.restore';
+    case RESEP_BAHAN_FORCE_DELETE = 'resep_bahan.forceDelete';
 
     case SATUAN_VIEW_ALL = 'satuan.viewAll';
     case SATUAN_VIEW = 'satuan.view';
     case SATUAN_CREATE = 'satuan.create';
     case SATUAN_UPDATE = 'satuan.update';
     case SATUAN_DELETE = 'satuan.delete';
+    case SATUAN_RESTORE = 'satuan.restore';
+    case SATUAN_FORCE_DELETE = 'satuan.forceDelete';
 
     case SISA_PRODUKSI_VIEW_ALL = 'sisa_produksi.viewAll';
     case SISA_PRODUKSI_VIEW = 'sisa_produksi.view';
     case SISA_PRODUKSI_CREATE = 'sisa_produksi.create';
     case SISA_PRODUKSI_UPDATE = 'sisa_produksi.update';
     case SISA_PRODUKSI_DELETE = 'sisa_produksi.delete';
+    case SISA_PRODUKSI_RESTORE = 'sisa_produksi.restore';
+    case SISA_PRODUKSI_FORCE_DELETE = 'sisa_produksi.forceDelete';
 
     case STOK_GUDANG_VIEW_ALL = 'stok_gudang.viewAll';
     case STOK_GUDANG_VIEW = 'stok_gudang.view';
