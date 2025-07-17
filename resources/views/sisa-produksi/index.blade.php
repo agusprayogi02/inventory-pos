@@ -43,7 +43,7 @@
             ]" />
             <x-adminlte.form.input name="tanggal" label="Tanggal" type="date" placeholder="Tanggal"
                 value="{{ now()->format('Y-m-d') }}" />
-            <x-adminlte.form.input name="jumlah" label="Jumlah Target" type="number" placeholder="Jumlah" required />
+            <x-adminlte.form.input name="jumlah" label="Jumlah Sisa" type="number" placeholder="Jumlah" required />
             <x-adminlte-select name="status" id="add-status" label="Status">
                 <option value="baik">Baik</option>
                 <option value="rusak">Rusak</option>
@@ -73,9 +73,9 @@
                 ],
             ]" />
             <x-adminlte.form.input name="tanggal" id="edit-tanggal" label="Tanggal" type="date" placeholder="Tanggal" />
-            <x-adminlte.form.input name="jumlah" id="edit-jumlah" label="Jumlah" type="number" placeholder="Jumlah"
+            <x-adminlte.form.input name="jumlah" id="edit-jumlah" label="Jumlah Sisa" type="number" placeholder="Jumlah"
                 required />
-            <x-adminlte-select name="status" id="add-status" label="Status">
+            <x-adminlte-select name="status" id="edit-status" label="Status">
                 <option value="baik">Baik</option>
                 <option value="rusak">Rusak</option>
                 <option value="kedaluarsa">Kedaluarsa</option>
