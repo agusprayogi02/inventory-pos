@@ -88,6 +88,8 @@
         }
 
         function changeStokGudang(id, sisaStok, changedId, jumlah, tanggal, keterangan) {
+            // change title to edit stok
+            $('#modal-minus-stok-gudang').find('.modal-title').text('Edit Stok Gudang');
             $('#add-stok_gudang_ref_input').val(id);
             $('#group-sisa-stok').addClass('d-none');
             $('#add-changed_id_input').val(changedId);
